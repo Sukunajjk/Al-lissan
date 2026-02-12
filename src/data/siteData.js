@@ -43,15 +43,81 @@ export const navLinks = [
 ];
 
 export const stats = [
-  { label: "Children Supported", value: 5000, suffix: "+" },
-  { label: "Years of Service", value: 28, suffix: "+" },
-  { label: "Rehabilitation Centers", value: 6, suffix: "" },
-  { label: "Trained Specialists", value: 200, suffix: "+" },
+  { label: "Children Supported", value: 5000, suffix: "+", icon: "Heart" },
+  { label: "Years of Service", value: 28, suffix: "+", icon: "Calendar" },
+  { label: "Rehabilitation Centers", value: 6, suffix: "", icon: "Building" },
+  { label: "Trained Specialists", value: 200, suffix: "+", icon: "Users" },
 ];
 
 export const partners = [
   "UNICEF", "WHO Pakistan", "Ministry of Social Welfare", "Aga Khan Foundation",
   "Pakistan Medical Association", "British Council", "Special Olympics Pakistan", "SZABIST",
+];
+
+export const processSteps = [
+  {
+    step: "01",
+    title: "Initial Assessment",
+    desc: "Our expert team conducts a comprehensive evaluation to understand each child's unique needs, strengths, and developmental goals.",
+    icon: "ClipboardCheck",
+  },
+  {
+    step: "02",
+    title: "Custom Care Plan",
+    desc: "A personalized rehabilitation plan is designed combining therapy, education, and family support tailored to the child.",
+    icon: "FileHeart",
+  },
+  {
+    step: "03",
+    title: "Therapy & Education",
+    desc: "Children receive daily sessions with certified therapists and educators using internationally recognized methodologies.",
+    icon: "GraduationCap",
+  },
+  {
+    step: "04",
+    title: "Progress & Growth",
+    desc: "Regular milestones are tracked and celebrated, with plans adapted continuously to maximize each child's potential.",
+    icon: "TrendingUp",
+  },
+];
+
+export const impactStories = [
+  {
+    name: "Ahmed",
+    age: "8 years old",
+    program: "IFRA - Autism Rehab",
+    before: "Non-verbal, unable to make eye contact or engage in social interactions with peers.",
+    after: "Now communicates using full sentences, attends mainstream classes part-time, and plays with friends.",
+    duration: "3 years in program",
+    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80",
+  },
+  {
+    name: "Sara",
+    age: "6 years old",
+    program: "Hearing Impaired Rehab",
+    before: "Profound hearing loss from birth, no speech development, isolated from family conversations.",
+    after: "Uses hearing aids effectively, speaks clearly, top of her class in a mainstream school.",
+    duration: "2 years in program",
+    image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=400&q=80",
+  },
+  {
+    name: "Hassan",
+    age: "10 years old",
+    program: "Al-Masoom Center",
+    before: "Unable to perform basic self-care tasks, limited vocabulary, severe learning difficulties.",
+    after: "Independently manages daily routines, reads at grade level, participates in school activities.",
+    duration: "4 years in program",
+    image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&q=80",
+  },
+];
+
+export const whyChooseUs = [
+  { title: "28+ Years of Expertise", desc: "Nearly three decades of specialized experience in child rehabilitation, backed by evidence-based approaches and continuous innovation.", icon: "Award" },
+  { title: "Holistic Rehabilitation", desc: "Comprehensive programs addressing physical, cognitive, emotional, and social development through an integrated care model.", icon: "Layers" },
+  { title: "Expert Clinical Team", desc: "200+ certified therapists and educators trained in internationally recognized methodologies for special needs care.", icon: "Users" },
+  { title: "Family-Centered Approach", desc: "Empowering families with the tools, training, and support they need to continue rehabilitation beyond our centers.", icon: "Home" },
+  { title: "Inclusive Education", desc: "Creating pathways to mainstream education and society through carefully designed transition programs.", icon: "BookOpen" },
+  { title: "Community Impact", desc: "Building awareness and advocacy for disability rights across Pakistan's social landscape.", icon: "Globe" },
 ];
 
 export const programs = [
@@ -63,6 +129,7 @@ export const programs = [
     icon: "Brain",
     image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80",
     badge: "Flagship",
+    color: "from-emerald-500 to-teal-600",
   },
   {
     id: "hearing",
@@ -72,6 +139,7 @@ export const programs = [
     icon: "Ear",
     image: "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=600&q=80",
     badge: null,
+    color: "from-cyan-500 to-blue-600",
   },
   {
     id: "al-masoom",
@@ -81,6 +149,7 @@ export const programs = [
     icon: "Heart",
     image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80",
     badge: null,
+    color: "from-violet-500 to-purple-600",
   },
   {
     id: "irada",
@@ -90,6 +159,7 @@ export const programs = [
     icon: "Users",
     image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80",
     badge: "New",
+    color: "from-amber-500 to-orange-600",
   },
   {
     id: "dar-ul-sakoon",
@@ -99,6 +169,7 @@ export const programs = [
     icon: "ShieldCheck",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80",
     badge: null,
+    color: "from-rose-500 to-pink-600",
   },
   {
     id: "courses",
@@ -108,6 +179,7 @@ export const programs = [
     icon: "GraduationCap",
     image: "https://images.unsplash.com/photo-1523050854058-8df90110c5f1?w=600&q=80",
     badge: null,
+    color: "from-primary-500 to-primary-700",
   },
 ];
 
@@ -118,6 +190,7 @@ export const testimonials = [
     text: "Al-Lissan transformed our lives. My son, who was non-verbal at age 4, now communicates with confidence. The dedication of the therapists is truly remarkable.",
     avatar: "FA",
     gradient: "from-primary-500 to-accent-500",
+    rating: 5,
   },
   {
     name: "Dr. Sana Khan",
@@ -125,22 +198,33 @@ export const testimonials = [
     text: "In my 15 years of practice, I have rarely seen an organization so committed to the holistic development of special children. Their approach is both scientific and deeply compassionate.",
     avatar: "SK",
     gradient: "from-accent-500 to-primary-600",
+    rating: 5,
   },
   {
     name: "Rashid Malik",
-    role: "Corporate Donor",
+    role: "Corporate Partner",
     text: "Partnering with Al-Lissan has been incredibly rewarding. Their transparency and the tangible impact they create make them a model NGO in Pakistan's social sector.",
     avatar: "RM",
     gradient: "from-primary-600 to-primary-400",
+    rating: 5,
+  },
+  {
+    name: "Amina Bibi",
+    role: "Mother of 3 Students",
+    text: "All three of my children attend Al-Lissan programs. The transformation I've seen in their confidence and abilities is nothing short of miraculous. This organization is a blessing.",
+    avatar: "AB",
+    gradient: "from-warm-400 to-primary-500",
+    rating: 5,
   },
 ];
 
 export const faqs = [
   { question: "How can I enroll my child in a program?", answer: "You can begin by visiting our contact page or calling our office. Our team will schedule an initial assessment to understand your child's needs and recommend the most suitable program." },
   { question: "What age groups do you serve?", answer: "We serve children from early intervention (ages 2-3) through adolescence. Each program has specific age-appropriate tracks designed to maximize developmental outcomes." },
-  { question: "Are there fees for rehabilitation services?", answer: "Al-Lissan operates on a subsidized fee model. We never turn away a child due to inability to pay. Scholarship programs and donor support help cover costs for families in need." },
-  { question: "How is my donation used?", answer: "78% of all donations go directly to program delivery. 12% covers administration, and 10% supports fundraising. Full details are in our annual reports." },
+  { question: "Are there fees for rehabilitation services?", answer: "Al-Lissan operates on a subsidized fee model. We never turn away a child due to inability to pay. Scholarship programs and supporter contributions help cover costs for families in need." },
+  { question: "How can I support Al-Lissan's mission?", answer: "There are many ways to help — from spreading awareness to corporate partnerships, sponsoring a child's program, or organizing fundraisers. Contact us to explore how you can make an impact." },
   { question: "Can I visit your centers before enrolling?", answer: "Absolutely. We encourage parents to visit and observe our programs firsthand. Contact us to schedule a guided tour of any of our six rehabilitation centers." },
+  { question: "What qualifications do your therapists hold?", answer: "All our therapists hold certified degrees in their fields — Speech Therapy, Occupational Therapy, Psychology, or Special Education. Many have international training and over a decade of hands-on experience." },
 ];
 
 export const newsArticles = [

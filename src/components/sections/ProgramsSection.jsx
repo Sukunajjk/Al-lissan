@@ -1,80 +1,66 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Brain, Ear, Heart, Users, ShieldCheck, GraduationCap } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SectionHeading from '../ui/SectionHeading';
 import { programs } from '../../data/siteData';
 
 const iconMap = { Brain, Ear, Heart, Users, ShieldCheck, GraduationCap };
 
 export default function ProgramsSection() {
   return (
-    <section className="py-28 bg-neutral-50 relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 w-[500px] h-[300px] bg-primary-50/60 rounded-full blur-3xl" />
+    <section className="relative py-32 bg-neutral-950 overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-primary-600/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-500/5 rounded-full blur-[150px]" />
+      </div>
+      <div className="absolute inset-0 dot-pattern opacity-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-        <SectionHeading
-          subtitle="Our Programs"
-          title="Comprehensive Rehabilitation Services"
-          description="Specialized programs tailored to every child's unique needs, delivered by trained professionals in state-of-the-art facilities."
-        />
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <span className="inline-block text-[11px] font-bold tracking-[0.3em] uppercase text-primary-400 mb-4">What We Do</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Our Programs</h2>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            <Link to="/programs" className="inline-flex items-center gap-2 text-sm text-primary-400 hover:text-primary-300 font-semibold transition-colors group">
+              View All Programs
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {programs.map((program, i) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {programs.slice(0, 6).map((program, i) => {
             const Icon = iconMap[program.icon] || Heart;
             return (
               <motion.div
                 key={program.id}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                whileHover={{ y: -10 }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group relative rounded-3xl overflow-hidden"
               >
-                <Link
-                  to={`/programs/${program.id}`}
-                  className="group block bg-white rounded-2xl overflow-hidden border border-neutral-100 hover:shadow-2xl hover:shadow-primary-600/8 hover:border-primary-100 transition-all duration-400 h-full"
-                >
-                  {/* Image */}
-                  <div className="relative h-52 overflow-hidden">
-                    <img
-                      src={program.image}
-                      alt={program.shortTitle}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-                    {/* Badge */}
+                <Link to={`/programs/${program.id}`} className="block relative h-full">
+                  <div className="relative h-64 lg:h-72 overflow-hidden">
+                    <img src={program.image} alt={program.shortTitle} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
                     {program.badge && (
-                      <div className="absolute top-4 right-4">
-                        <span className={`px-2.5 py-1 text-[11px] font-bold rounded-full ${
-                          program.badge === 'Flagship' ? 'bg-warm-400 text-warm-50' : 'bg-primary-500 text-white'
-                        }`}>
-                          {program.badge}
-                        </span>
-                      </div>
+                      <span className={`absolute top-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
+                        program.badge === 'Flagship' ? 'bg-primary-500 text-white' : 'bg-white text-neutral-900'
+                      }`}>{program.badge}</span>
                     )}
-
-                    {/* Icon */}
-                    <div className="absolute bottom-4 left-4">
-                      <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-primary-600 group-hover:border-primary-600 transition-all duration-300">
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
+                    <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                      <ArrowRight className="w-4 h-4 text-white" />
                     </div>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-neutral-900 group-hover:text-primary-600 transition-colors duration-200 mb-2">
-                      {program.shortTitle}
-                    </h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed mb-5 line-clamp-2">
-                      {program.description}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary-600 group-hover:gap-3 transition-all duration-300">
-                      Learn More
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${program.color} flex items-center justify-center shadow-lg`}>
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <h3 className="text-white font-bold text-lg">{program.shortTitle}</h3>
+                    </div>
+                    <p className="text-white/50 text-sm leading-relaxed line-clamp-2">{program.description}</p>
                   </div>
                 </Link>
               </motion.div>

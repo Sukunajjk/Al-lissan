@@ -1,82 +1,99 @@
 import { motion } from 'framer-motion';
-import { Heart, ArrowRight } from 'lucide-react';
-import Button from '../ui/Button';
+import { ArrowRight, Phone, Heart, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function CTASection() {
   return (
-    <section className="relative py-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1920&q=80"
-          alt="Children"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-950/95 via-primary-900/90 to-primary-800/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(52,211,126,0.1),transparent_70%)]" />
+    <section className="relative py-32 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800" />
+      <div className="absolute inset-0 dot-pattern opacity-10" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[5%] left-[10%] w-[400px] h-[400px] bg-primary-400/10 rounded-full blur-[100px]" />
+        <div className="absolute top-[50%] left-[50%] w-[250px] h-[250px] bg-accent-400/5 rounded-full blur-[80px] img-morph" />
       </div>
 
-      {/* Animated blobs */}
-      <div className="absolute top-10 right-1/4 w-72 h-72 bg-primary-400/10 rounded-full blur-3xl animate-blob" />
-      <div className="absolute bottom-10 left-1/4 w-96 h-96 bg-accent-400/8 rounded-full blur-3xl animate-blob delay-2000" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-          className="max-w-3xl mx-auto text-center"
-        >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left content */}
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-16 h-16 mx-auto rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
           >
-            <Heart className="w-8 h-8 text-white" />
+            <span className="inline-block text-[11px] font-bold tracking-[0.3em] uppercase text-white/40 mb-6">Get Involved</span>
+            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-white tracking-tight leading-tight mb-6">
+              Help Build a More
+              <br />
+              Inclusive World
+            </h2>
+            <p className="text-lg text-white/40 leading-relaxed mb-10 max-w-lg">
+              Whether through partnerships, spreading awareness, or supporting our programs — your involvement can change a child's future forever.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-primary-700 font-semibold rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:bg-primary-50 transition-all duration-300 text-[15px]"
+                >
+                  Contact Us
+                  <ArrowRight className="w-4.5 h-4.5" />
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <a
+                  href="tel:+9221XXXXXXX"
+                  className="inline-flex items-center gap-2.5 px-8 py-4 bg-white/10 text-white border border-white/20 font-semibold rounded-2xl hover:bg-white/20 transition-all duration-300 text-[15px] backdrop-blur-sm"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call Us Now
+                </a>
+              </motion.div>
+            </div>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6 tracking-tight"
-          >
-            Every Child Deserves
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-300 to-accent-300">
-              a Chance to Shine
-            </span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-lg text-white/60 leading-relaxed mb-10"
-          >
-            Your generosity can transform the life of a special child. Whether through donations, volunteering, or spreading awareness — every contribution creates ripples of change.
-          </motion.p>
-
+          {/* Right - mini info cards */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4"
+            transition={{ delay: 0.2, duration: 0.7 }}
+            className="space-y-4"
           >
-            <Button to="/donate" variant="primary" size="lg" className="!bg-white !text-primary-700 hover:!bg-primary-50 !shadow-xl !shadow-black/10">
-              <Heart className="w-5 h-5" />
-              Donate Now
-            </Button>
-            <Button to="/volunteer" variant="outline" size="lg">
-              Become a Volunteer
-              <ArrowRight className="w-5 h-5" />
-            </Button>
+            {[
+              {
+                icon: Heart,
+                title: "Partner With Us",
+                desc: "Corporate partnerships, sponsorships, and awareness collaborations to amplify our impact.",
+              },
+              {
+                icon: MapPin,
+                title: "Visit Our Centers",
+                desc: "See our work firsthand. Schedule a guided tour of any of our 6 specialized rehabilitation centers.",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.15 }}
+                whileHover={{ x: 8, transition: { type: "spring", stiffness: 300 } }}
+                className="flex items-start gap-5 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                  <item.icon className="w-5 h-5 text-white/70" />
+                </div>
+                <div>
+                  <h3 className="text-white font-bold mb-1">{item.title}</h3>
+                  <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
