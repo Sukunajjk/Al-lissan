@@ -4,6 +4,7 @@ import ImpactSection from '../components/sections/ImpactSection';
 import ProgramsSection from '../components/sections/ProgramsSection';
 import ProcessSection from '../components/sections/ProcessSection';
 import WhyChooseUs from '../components/sections/WhyChooseUs';
+import PresidentMessageSection from '../components/sections/PresidentMessageSection';
 import ImpactStoriesSection from '../components/sections/ImpactStoriesSection';
 import TestimonialsSection from '../components/sections/TestimonialsSection';
 import NewsSection from '../components/sections/NewsSection';
@@ -19,6 +20,7 @@ export default function Home() {
       <ProgramsSection />
       <ProcessSection />
       <WhyChooseUs />
+      <PresidentMessageSection />
       <ImpactStoriesSection />
       <TestimonialsSection />
       <NewsSection />

@@ -254,6 +254,14 @@ export const galleryImages = [
   { id: 9, src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80", alt: "Team collaboration", category: "Team" },
 ];
 
+export const presidentMessage = {
+  name: "Founder & President",
+  title: "A Message from Our President",
+  message: "For nearly three decades, Tanzeem Al-Lissan has worked relentlessly to ensure that no child with special needs is left without access to quality rehabilitation and education. What began as a vision in 1996 has grown into a movement — one that has touched the lives of over 5,000 children and their families across Pakistan. Our commitment remains unwavering: to provide world-class care with compassion, integrity, and a deep respect for every child's potential. I invite you to join us in building a more inclusive Pakistan — where every child, regardless of their abilities, has the opportunity to thrive.",
+  signature: "President, Tanzeem Al-Lissan",
+  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+};
+
 export const annualReports = [
   { year: "2025", title: "Annual Report 2025", size: "4.2 MB" },
   { year: "2024", title: "Annual Report 2024", size: "3.8 MB" },
