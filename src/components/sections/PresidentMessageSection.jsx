@@ -4,65 +4,66 @@ import { presidentMessage } from '../../data/siteData';
 
 export default function PresidentMessageSection() {
   return (
-    <section className="relative py-28 bg-neutral-950 overflow-hidden">
-      <div className="absolute inset-0 dot-pattern opacity-15" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-600/20 to-transparent" />
+    <section className="py-20 lg:py-28 bg-neutral-900 relative overflow-hidden">
+      {/* Decorative gradient */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary-600/5 rounded-full blur-[120px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
-        <div className="grid lg:grid-cols-12 gap-16 items-center">
-          {/* Photo Column */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+            transition={{ duration: 0.7 }}
             className="lg:col-span-4"
           >
-            <div className="relative">
-              <div className="aspect-[3/4] rounded-sm overflow-hidden">
+            <div className="relative max-w-sm mx-auto lg:mx-0">
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden">
                 <img
                   src={presidentMessage.image}
                   alt="President of Tanzeem Al-Lissan"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary-600/30 rounded-sm" />
+              <div className="absolute -bottom-4 -right-4 bg-primary-600 rounded-xl px-5 py-3">
+                <p className="text-white font-bold text-sm">Since 1996</p>
+              </div>
             </div>
-            <div className="mt-8">
-              <p className="text-white font-semibold text-lg">{presidentMessage.name}</p>
+            <div className="mt-8 text-center lg:text-left">
+              <p className="text-white font-bold text-lg">{presidentMessage.name}</p>
               <p className="text-white/40 text-sm">{presidentMessage.signature}</p>
             </div>
           </motion.div>
 
-          {/* Message Column */}
+          {/* Message */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
+            transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-8"
           >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-px bg-primary-600" />
-              <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary-400">
-                President's Message
-              </span>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-primary-600/20 flex items-center justify-center">
+                <Quote className="w-5 h-5 text-primary-400" />
+              </div>
+              <span className="text-primary-400 font-semibold text-sm tracking-wide">President's Message</span>
             </div>
 
-            <Quote className="w-10 h-10 text-primary-600/30 mb-6" />
-
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-8 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-8 tracking-tight">
               {presidentMessage.title}
             </h2>
 
-            <p className="text-lg md:text-xl text-white/50 leading-relaxed font-light font-serif italic">
+            <blockquote className="text-lg md:text-xl text-white/50 leading-relaxed font-light italic border-l-4 border-primary-600/40 pl-6">
               {presidentMessage.message}
-            </p>
+            </blockquote>
 
-            <div className="mt-10 flex items-center gap-6">
-              <div className="w-16 h-px bg-white/10" />
-              <span className="text-sm text-white/30 font-medium tracking-wide">
-                Est. 1996 — Karachi, Pakistan
+            <div className="mt-10 flex items-center gap-4">
+              <div className="h-px flex-1 max-w-16 bg-white/10" />
+              <span className="text-sm text-white/30 font-medium">
+                Karachi, Pakistan
               </span>
             </div>
           </motion.div>

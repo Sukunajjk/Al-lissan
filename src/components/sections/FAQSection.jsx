@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, MessageCircle, ArrowRight } from 'lucide-react';
+import { Plus, Minus, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { faqs } from '../../data/siteData';
 
@@ -8,103 +8,78 @@ export default function FAQSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="relative py-28 bg-white overflow-hidden">
+      <div className="absolute inset-0 line-pattern" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
         <div className="grid lg:grid-cols-5 gap-16">
-          {/* Left column */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
             className="lg:col-span-2"
           >
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-px bg-primary-600" />
-              <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary-600">
-                FAQ
-              </span>
+              <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary-600">FAQ</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight mb-4">
-              Frequently Asked Questions
+              Common Questions
             </h2>
-            <p className="text-neutral-500 leading-relaxed mb-10">
-              Find answers to common questions about our programs, enrollment, and how you can support our mission.
+            <p className="text-neutral-500 leading-relaxed mb-8">
+              Find answers to frequently asked questions about our programs, enrollment, and how to get involved.
             </p>
 
-            {/* Still have questions card */}
-            <div className="bg-neutral-900 p-8">
-              <div className="w-11 h-11 bg-primary-600 flex items-center justify-center mb-5">
+            <div className="bg-neutral-950 p-8">
+              <div className="w-10 h-10 bg-primary-600 flex items-center justify-center mb-5">
                 <MessageCircle className="w-5 h-5 text-white" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Still have questions?</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed mb-6">
-                Our team is ready to help you with any questions about our programs and services.
+              <p className="text-neutral-400 text-sm leading-relaxed mb-5">
+                Our team is ready to help with any questions about our programs and services.
               </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors"
-              >
-                Contact Us
-                <ArrowRight className="w-4 h-4" />
+              <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-semibold text-primary-400 hover:text-primary-300 transition-colors">
+                Contact Us →
               </Link>
             </div>
           </motion.div>
 
-          {/* Right column - accordion */}
-          <div className="lg:col-span-3 space-y-3">
+          <div className="lg:col-span-3 space-y-px bg-neutral-200">
             {faqs.map((faq, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.4 }}
-                className={`border transition-all duration-300 ${
-                  open === i
-                    ? 'border-l-primary-600 border-l-[3px] border-t-neutral-200 border-r-neutral-200 border-b-neutral-200 bg-neutral-50'
-                    : 'border-neutral-200 bg-white'
+                transition={{ delay: i * 0.06 }}
+                className={`bg-white transition-all duration-300 ${
+                  open === i ? 'border-l-2 border-l-primary-600' : 'border-l-2 border-l-transparent'
                 }`}
               >
                 <button
                   onClick={() => setOpen(open === i ? -1 : i)}
                   className="w-full flex items-center justify-between p-6 text-left cursor-pointer"
                 >
-                  <span
-                    className={`font-semibold text-base pr-8 transition-colors ${
-                      open === i ? 'text-primary-700' : 'text-neutral-800'
-                    }`}
-                  >
-                    {faq.question}
-                  </span>
-                  <div
-                    className={`w-8 h-8 flex items-center justify-center shrink-0 transition-colors ${
-                      open === i
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-neutral-100 text-neutral-500'
-                    }`}
-                  >
-                    {open === i ? (
-                      <Minus className="w-4 h-4" />
-                    ) : (
-                      <Plus className="w-4 h-4" />
-                    )}
+                  <span className={`font-semibold text-[15px] pr-8 transition-colors ${
+                    open === i ? 'text-primary-700' : 'text-neutral-800'
+                  }`}>{faq.question}</span>
+                  <div className={`w-8 h-8 flex items-center justify-center shrink-0 transition-colors ${
+                    open === i ? 'bg-primary-600 text-white' : 'bg-neutral-100 text-neutral-500'
+                  }`}>
+                    {open === i ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
                 </button>
-
                 <AnimatePresence>
                   {open === i && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                      transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-0">
-                        <p className="text-neutral-500 leading-relaxed text-[15px]">
-                          {faq.answer}
-                        </p>
+                      <div className="px-6 pb-6">
+                        <p className="text-neutral-500 leading-relaxed text-[15px]">{faq.answer}</p>
                       </div>
                     </motion.div>
                   )}

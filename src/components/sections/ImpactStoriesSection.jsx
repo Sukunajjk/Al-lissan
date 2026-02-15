@@ -5,82 +5,61 @@ import { impactStories } from '../../data/siteData';
 
 export default function ImpactStoriesSection() {
   return (
-    <section className="py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="py-20 lg:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="text-center mb-16"
         >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-px bg-primary-600" />
-            <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-primary-600">
-              Impact Stories
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight mb-4">
-            Lives Transformed Through Our Work
+          <span className="inline-block text-primary-600 font-semibold text-sm mb-3 tracking-wide">Real Stories</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-4">
+            Lives we've transformed
           </h2>
-          <p className="text-neutral-500 max-w-2xl leading-relaxed">
-            Behind every statistic is a child whose life has been changed. These are their stories.
+          <p className="text-neutral-500 max-w-xl mx-auto leading-relaxed">
+            Every number has a face. Every statistic has a story. Here are some of the children whose lives have been changed.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {impactStories.map((story, i) => (
             <motion.div
               key={story.name}
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="group bg-white border border-neutral-200 hover:border-neutral-300 transition-colors duration-300"
+              className="bg-white rounded-2xl border border-neutral-200/60 overflow-hidden hover:shadow-lg transition-shadow duration-500 group"
             >
-              {/* Image */}
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="relative h-56 overflow-hidden">
                 <img
                   src={story.image}
                   alt={story.name}
-                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-5 right-5">
+                  <h3 className="text-white font-bold text-lg">{story.name}, <span className="font-normal text-white/70">{story.age}</span></h3>
+                  <span className="text-primary-300 text-xs font-medium">{story.program}</span>
+                </div>
+                <span className="absolute top-4 right-4 px-3 py-1 bg-white/15 backdrop-blur-sm text-white text-xs font-medium rounded-lg">
+                  {story.duration}
+                </span>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                {/* Name and program */}
-                <div className="mb-5">
-                  <h3 className="text-lg font-bold text-neutral-900">
-                    {story.name}, <span className="font-normal text-neutral-500">{story.age}</span>
-                  </h3>
-                  <p className="text-xs font-medium text-primary-600 uppercase tracking-wider mt-1">
-                    {story.program}
-                  </p>
-                  <p className="text-[11px] text-neutral-400 mt-0.5">{story.duration}</p>
-                </div>
-
-                {/* Before */}
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="w-2 h-2 rounded-full bg-red-600 mt-1.5 shrink-0" />
+              <div className="p-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-1.5 h-full min-h-[40px] rounded-full bg-red-400 shrink-0 mt-1" />
                   <div>
-                    <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-red-600 block mb-1">
-                      Before
-                    </span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-red-500 block mb-1">Before</span>
                     <p className="text-sm text-neutral-500 leading-relaxed">{story.before}</p>
                   </div>
                 </div>
-
-                <hr className="border-neutral-200 my-4" />
-
-                {/* After */}
                 <div className="flex items-start gap-3">
-                  <div className="w-2 h-2 rounded-full bg-primary-600 mt-1.5 shrink-0" />
+                  <div className="w-1.5 h-full min-h-[40px] rounded-full bg-primary-500 shrink-0 mt-1" />
                   <div>
-                    <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-primary-600 block mb-1">
-                      After
-                    </span>
+                    <span className="text-[10px] font-bold tracking-widest uppercase text-primary-600 block mb-1">After</span>
                     <p className="text-sm text-neutral-700 leading-relaxed font-medium">{story.after}</p>
                   </div>
                 </div>
@@ -90,18 +69,14 @@ export default function ImpactStoriesSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-14 text-center"
+          className="text-center mt-12"
         >
-          <Link
-            to="/programs"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-neutral-300 text-sm font-semibold text-neutral-700 hover:border-primary-600 hover:text-primary-600 transition-colors duration-300"
-          >
-            View All Programs
-            <ArrowRight className="w-4 h-4" />
+          <Link to="/programs" className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors group">
+            See All Programs
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
       </div>
