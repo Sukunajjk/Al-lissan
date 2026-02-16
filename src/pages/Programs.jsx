@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Brain, Ear, Heart, Users, ShieldCheck, GraduationCap, ClipboardCheck, FileHeart, TrendingUp, CheckCircle2, Building2, Star } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Brain, Ear, Heart, Users, ShieldCheck, GraduationCap, ClipboardCheck, FileHeart, TrendingUp, CheckCircle2, Building2, Star, Sparkles, Activity, MessageCircle, Wrench } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { programs, processSteps, stats } from '../data/siteData';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import CTASection from '../components/sections/CTASection';
 
-const iconMap = { Brain, Ear, Heart, Users, ShieldCheck, GraduationCap, ClipboardCheck, FileHeart, TrendingUp };
+const iconMap = { Brain, Ear, Heart, Users, ShieldCheck, GraduationCap, ClipboardCheck, FileHeart, TrendingUp, Sparkles, Activity, MessageCircle, Wrench };
 
 // =========== PROGRAM DETAIL VIEW ===========
 function ProgramDetail({ program }) {
@@ -241,6 +241,7 @@ export default function Programs() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {programs.map((program, i) => {
+              // Get icon from map, default to Heart if not found
               const Icon = iconMap[program.icon] || Heart;
               return (
                 <motion.div
@@ -337,7 +338,7 @@ export default function Programs() {
               </p>
               <ul className="space-y-4">
                 {[
-                  "28+ years of specialized expertise in child rehabilitation",
+                  "30+ years of specialized expertise in child rehabilitation",
                   "200+ certified therapists, educators, and support staff",
                   "Internationally recognized evidence-based methodologies",
                   "Comprehensive family support and training programs",

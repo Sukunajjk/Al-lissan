@@ -1,23 +1,10 @@
-import { motion } from 'framer-motion';
-import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import CTASection from '../components/sections/CTASection';
-
-const milestones = [
-  { icon: Heart, value: 5000, suffix: "+", label: "Children Supported" },
-  { icon: Calendar, value: 28, suffix: "+", label: "Years of Service" },
-  { icon: Building2, value: 6, suffix: "", label: "Rehab Centers" },
-  { icon: Users, value: 200, suffix: "+", label: "Specialists" },
-];
-
-const timeline = [
-  { year: "1996", title: "Foundation", desc: "Tanzeem Al-Lissan established in Karachi to address the gap in special needs rehabilitation services across Pakistan." },
-  { year: "2002", title: "IFRA Launch", desc: "Institute for Rehabilitation of Autism (IFRA) launched as Pakistan's first dedicated autism rehabilitation center." },
-  { year: "2010", title: "Expansion", desc: "Expanded operations to 4 specialized rehabilitation centers, each focused on a different area of need." },
-  { year: "2018", title: "Professional Training", desc: "Launched post-graduate diploma programs to train the next generation of specialized therapists and educators." },
-  { year: "2024", title: "6 Centers Strong", desc: "Now operating 6 specialized centers with over 200 professionals serving children across the spectrum of special needs." },
-];
+import { timeline, stats } from '../data/siteData';
 
 const values = [
   { icon: BookOpen, title: "Evidence-Based", desc: "Programs built on research-validated methods and internationally recognized standards." },
@@ -42,10 +29,10 @@ export default function About() {
             </div>
             <span className="inline-block text-primary-400 font-semibold text-sm mb-3">Our Story</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-              Defining the future of<br />special care
+              A Journey of Compassion<br />and Empowerment
             </h1>
             <p className="text-lg text-white/50 leading-relaxed max-w-2xl">
-              Since 1996, Tanzeem Al-Lissan has been Pakistan's leading organization for the rehabilitation and empowerment of children with special needs.
+              Since 1996, Tanzeem-al-Lissan has been a beacon of hope, growing from a small center with six students to a leading institution serving thousands.
             </p>
           </motion.div>
         </div>
@@ -56,15 +43,15 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-32">
-              <span className="inline-block text-primary-600 font-semibold text-sm mb-3">Our Journey</span>
+              <span className="inline-block text-primary-600 font-semibold text-sm mb-3">Who We Are</span>
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight mb-6">
-                From humble beginnings to nationwide impact
+                Tanzeem-al-Lissan: A Voluntary Organization for Special Children
               </h2>
               <p className="text-neutral-600 leading-relaxed mb-6">
-                Tanzeem Al-Lissan was founded in 1996 with a simple yet powerful mission — to ensure no child with a disability is denied access to quality rehabilitation. Starting from a single center in Karachi, our journey has been one of relentless dedication and growth.
+                Established in 1996 in Faisalabad, Tanzeem-al-Lissan is a nonprofit charitable organization dedicated to the uplift and welfare of children with special needs. We work to enable them to lead meaningful, independent lives through education, rehabilitation, and professional training.
               </p>
               <p className="text-neutral-500 leading-relaxed mb-8">
-                Today, we operate six specialized centers staffed by over 200 trained professionals, serving thousands of children across the spectrum — from autism and hearing impairment to intellectual disabilities and psychological conditions.
+                Our journey began with the Danish Center for Hearing-Impaired Children with just six students. Today, we operate from a purpose-built facility with 57 rooms on 8 canals of land, serving hundreds of students in our main campuses and rural Sehara centers. We provide specialized services for hearing-impaired, intellectually challenged, physically disabled, and autistic individuals.
               </p>
               <div className="flex items-center gap-8 pt-6 border-t border-neutral-200">
                 <div>
@@ -73,7 +60,7 @@ export default function About() {
                 </div>
                 <div className="w-px h-10 bg-neutral-200" />
                 <div>
-                  <div className="text-3xl font-bold text-neutral-900">Karachi</div>
+                  <div className="text-3xl font-bold text-neutral-900">Faisalabad</div>
                   <p className="text-xs text-neutral-400 uppercase tracking-wider mt-1">Pakistan</p>
                 </div>
               </div>
@@ -83,13 +70,13 @@ export default function About() {
               <div className="relative rounded-2xl overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Children in rehabilitation" className="w-full h-80 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
-                  <p className="text-white/80 text-sm">Our children during a group therapy session</p>
+                  <p className="text-white/80 text-sm">Empowering children since 1996</p>
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=80" alt="Special education classroom" className="w-full h-64 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
-                  <p className="text-white/80 text-sm">Specialized education at one of our six centers</p>
+                  <p className="text-white/80 text-sm">State-of-the-art facilities</p>
                 </div>
               </div>
             </motion.div>
@@ -101,55 +88,120 @@ export default function About() {
       <section className="py-16 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {milestones.map((m, i) => (
+            {stats.map((m, i) => {
+              // Map icon string to component
+              const Icon = m.icon === "Users" ? Users : m.icon === "Calendar" ? Calendar : m.icon === "Building" ? Building2 : Heart;
+              
+              return (
               <motion.div key={m.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="text-center bg-white/5 rounded-2xl p-6">
-                <m.icon className="w-6 h-6 text-primary-400 mx-auto mb-3" />
+                <Icon className="w-6 h-6 text-primary-400 mx-auto mb-3" />
                 <div className="text-3xl lg:text-4xl font-bold text-white tracking-tight mb-1">
                   <AnimatedCounter value={m.value} suffix={m.suffix} />
                 </div>
                 <p className="text-xs text-white/40">{m.label}</p>
               </motion.div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+      {/* Snake Timeline Redesigned */}
+      <section className="py-20 lg:py-28 bg-neutral-50 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            className="text-center mb-16 md:mb-32"
+          >
             <span className="inline-block text-primary-600 font-semibold text-sm mb-3">Milestones</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">Our Journey</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
+               Our Journey (1996 - 2026)
+            </h2>
           </motion.div>
 
-          <div className="relative max-w-3xl mx-auto">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-neutral-200 md:-translate-x-px" />
-            {timeline.map((item, i) => (
-              <motion.div key={item.year} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className={`relative flex items-start gap-8 mb-12 last:mb-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                <div className={`hidden md:block flex-1 ${i % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                  <div className="bg-white rounded-xl p-6 border border-neutral-200/60 hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-neutral-900 mb-2">{item.title}</h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
-                  </div>
+          {/* New Snake Layout Structure */}
+          <div className="hidden md:block relative pb-20">
+            {timeline.map((item, i) => {
+              const isEven = i % 2 === 0; // Left
+              const isLast = i === timeline.length - 1;
+              
+              return (
+                <div key={item.year} className="relative min-h-[300px] flex items-center">
+                   
+                   {/* Layout Grid */}
+                   <div className={`w-full flex items-center ${isEven ? 'flex-row' : 'flex-row-reverse'}`}>
+                      
+                      {/* 1. Content Card */}
+                      <motion.div 
+                        className="w-[45%] relative z-20"
+                        initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.6 }}
+                      >
+                         <div className={`relative p-8 bg-white rounded-[2rem] shadow-sm border border-neutral-100 hover:shadow-xl hover:border-primary-100 transition-all duration-300 group`}>
+                            {/* Connector Dot */}
+                            <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-4 border-primary-500 z-30 ${isEven ? '-right-14' : '-left-14'}`} />
+
+                            <span className="inline-block px-4 py-1 bg-primary-50 text-primary-700 text-sm font-bold rounded-full mb-4">
+                               {item.year}
+                            </span>
+                            <h3 className="text-2xl font-bold text-neutral-900 mb-3 group-hover:text-primary-600 transition-colors">{item.title}</h3>
+                            <p className="text-neutral-500 leading-relaxed">{item.desc}</p>
+                         </div>
+                      </motion.div>
+
+                      {/* 2. Spacer */}
+                      <div className="w-[10%]" />
+
+                      {/* 3. Empty Space / Image */}
+                      <div className="w-[45%]" />
+                      
+                   </div>
+
+                   {/* Connector Lines (The Snake) */}
+                   {!isLast && (
+                     <div className="absolute inset-x-0 w-full h-full pointer-events-none -z-10">
+                        {/* 
+                           If Even (Left Card):
+                           Line needs to go from Center-Right -> Right Edge -> Down -> Center-Right
+                         */}
+                        {isEven ? (
+                           // Right Bracket
+                           <div className="absolute top-1/2 left-1/2 w-[50%] h-[100%] border-t-4 border-r-4 border-b-4 border-primary-200 rounded-tr-[5rem] rounded-br-[5rem]"
+                                style={{ transform: 'translateY(2px)' }} // Slight adj
+                           />
+                        ) : (
+                           // Left Bracket
+                           <div className="absolute top-1/2 right-1/2 w-[50%] h-[100%] border-t-4 border-l-4 border-b-4 border-primary-200 rounded-tl-[5rem] rounded-bl-[5rem]" 
+                                style={{ transform: 'translateY(2px)' }} 
+                           />
+                        )}
+                        
+                        {/* Connection Crossbar (Optional fill) */}
+                     </div>
+                   )}
                 </div>
-                <div className="relative z-10 flex items-center justify-center shrink-0">
-                  <div className="w-9 h-9 bg-primary-600 text-white text-xs font-bold flex items-center justify-center rounded-full">
-                    {item.year.slice(-2)}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <span className="text-xs font-bold text-primary-600 tracking-wider hidden md:block">{item.year}</span>
-                  <div className="md:hidden bg-white rounded-xl p-6 border border-neutral-200/60">
-                    <span className="text-xs font-bold text-primary-600 tracking-wider block mb-2">{item.year}</span>
-                    <h3 className="font-bold text-neutral-900 mb-2">{item.title}</h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+              )
+            })}
           </div>
+
+          {/* Mobile Logic */}
+          <div className="md:hidden space-y-8 pl-4 border-l-2 border-primary-100 relative">
+             {timeline.map((item, i) => (
+               <div key={item.year} className="relative pl-8">
+                  <div className="absolute top-6 -left-[9px] w-4 h-4 rounded-full bg-white border-4 border-primary-500" />
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
+                     <span className="text-primary-600 font-bold text-sm mb-2 block">{item.year}</span>
+                     <h3 className="text-xl font-bold text-neutral-900 mb-2">{item.title}</h3>
+                     <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+               </div>
+             ))}
+          </div>
+
         </div>
       </section>
 

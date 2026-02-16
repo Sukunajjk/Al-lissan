@@ -1,9 +1,77 @@
 import { motion } from 'framer-motion';
-import { Calendar, ArrowRight, Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Calendar, ArrowRight, Clock, ArrowLeft, Share2 } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 import { newsArticles } from '../data/siteData';
 
+// =========== NEWS DETAIL VIEW ===========
+function NewsDetail({ article }) {
+  return (
+    <article className="min-h-screen bg-white">
+      {/* Hero Image */}
+      <div className="relative h-[60vh] w-full overflow-hidden">
+        <img src={article.image.replace('w=600', 'w=1400')} alt={article.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-black/20" />
+        
+        <div className="absolute bottom-0 left-0 w-full p-8 md:p-12">
+            <div className="max-w-4xl mx-auto">
+                 <Link to="/news" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors text-sm font-medium">
+                    <ArrowLeft className="w-4 h-4" /> Back to News
+                 </Link>
+                 <div className="flex items-center gap-4 mb-4 text-sm font-medium text-white/80">
+                    <span className="px-3 py-1 bg-primary-600 text-white rounded-lg">{article.category}</span>
+                    <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {article.date}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {article.readTime}</span>
+                 </div>
+                 <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4 shadow-sm">
+                    {article.title}
+                 </h1>
+            </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="prose prose-lg prose-neutral max-w-none">
+            <p className="lead text-xl text-neutral-600 font-medium mb-8 border-l-4 border-primary-500 pl-4 bg-neutral-50 py-4 pr-4 rounded-r-lg">
+                {article.excerpt}
+            </p>
+            {/* Placeholder for full content since data file only has excerpts. In a real app, this would be a content field. */}
+            <p className="text-neutral-600 leading-relaxed mb-6">
+                This is the detailed view for the news article. Currently, we haven't migrated the full body text for all articles, but this section would contain the complete story, images, and embedded media related to "{article.title}".
+            </p>
+            <p className="text-neutral-600 leading-relaxed mb-6">
+                At Tanzeem-al-Lissan, we strictly adhere to our mission of providing quality education and rehabilitation. This initiative is a testament to our ongoing commitment to serving the community and expanding our reach to those who need it most.
+            </p>
+            <p className="text-neutral-600 leading-relaxed">
+                For more information or to get involved, please visit our contact page or reach out to our administration office.
+            </p>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-neutral-200 flex items-center justify-between">
+            <span className="font-bold text-neutral-900">Share this article:</span>
+            <div className="flex gap-4">
+                <button className="p-2 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors text-neutral-600">
+                    <Share2 className="w-5 h-5" />
+                </button>
+            </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// =========== NEWS LISTING VIEW ===========
 export default function News() {
+  const { id } = useParams();
+
+  // If ID present, show detail view
+  if (id) {
+    const article = newsArticles.find((a) => a.id.toString() === id);
+    if (article) return <NewsDetail article={article} />;
+    // If not found, fall through to list (or could show 404)
+  }
+
   const featured = newsArticles[0];
   const rest = newsArticles.slice(1);
 

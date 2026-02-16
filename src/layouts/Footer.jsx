@@ -5,17 +5,17 @@ import { siteConfig } from '../data/siteData';
 const footerLinks = {
   programs: [
     { name: "Autism Rehabilitation", path: "/programs/ifra" },
-    { name: "Hearing Support", path: "/programs/hearing" },
+    { name: "Hearing Support", path: "/programs/danish-center" }, // Updated path to match new ID
     { name: "Intellectual Development", path: "/programs/al-masoom" },
-    { name: "IRADA Program", path: "/programs/irada" },
-    { name: "Psychological Clinic", path: "/programs/dar-ul-sakoon" },
+    { name: "Physiotherapy", path: "/programs/physiotherapy" }, // Updated
+    { name: "Vocational Training", path: "/programs/vocational" }, // Updated
   ],
   organization: [
     { name: "About Us", path: "/about" },
     { name: "Vision & Mission", path: "/vision-mission" },
     { name: "Leadership", path: "/team" },
     { name: "Gallery", path: "/gallery" },
-    { name: "Annual Reports", path: "/reports" },
+    // Removed Annual Reports
   ],
   connect: [
     { name: "Contact Us", path: "/contact" },

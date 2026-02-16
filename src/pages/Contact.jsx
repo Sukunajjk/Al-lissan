@@ -89,7 +89,7 @@ export default function Contact() {
                 <div className="text-center text-white/30">
                   <MapPin className="w-6 h-6 mx-auto mb-2" />
                   <p className="text-sm font-medium">Map integration</p>
-                  <p className="text-xs text-white/20">Karachi, Pakistan</p>
+                  <p className="text-xs text-white/20">Faisalabad, Pakistan</p>
                 </div>
               </div>
             </motion.div>

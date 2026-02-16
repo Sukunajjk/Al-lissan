@@ -3,27 +3,28 @@ import { partners } from '../../data/siteData';
 
 export default function PartnersSection() {
   return (
-    <section className="relative py-16 bg-neutral-50 border-y border-neutral-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-neutral-400 shrink-0">
-            Trusted By
-          </span>
-          <div className="w-px h-6 bg-neutral-300 hidden md:block" />
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {partners.map((partner, i) => (
-              <motion.span
-                key={partner}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="text-sm font-semibold text-neutral-400 hover:text-primary-600 transition-colors duration-300 cursor-default"
-              >
-                {partner}
-              </motion.span>
+    <section className="py-12 bg-neutral-50 border-t border-neutral-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p className="text-neutral-400 text-sm font-semibold uppercase tracking-widest mb-8">
+            Trusted by Government & International Bodies
+        </p>
+        
+        <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            {/* Using text placeholders as per data, but styled to look like logos */}
+            {partners.map((partner, index) => (
+                <motion.div 
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center"
+                >
+                    <span className="text-lg md:text-xl font-bold text-neutral-800 hover:text-primary-600 transition-colors">
+                        {partner}
+                    </span>
+                </motion.div>
             ))}
-          </div>
         </div>
       </div>
     </section>
