@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import CTASection from '../components/sections/CTASection';
