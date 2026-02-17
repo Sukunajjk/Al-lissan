@@ -34,24 +34,28 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="bg-neutral-900">
-      {/* Newsletter */}
-      <div className="border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-primary-600 rounded-2xl px-8 py-10 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* Trust/Stats Bar */}
+      <div className="border-b border-white/5 bg-neutral-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
-              <h3 className="text-xl font-bold text-white mb-1">Stay Connected</h3>
-              <p className="text-sm text-white/70">Get updates on our programs and impact stories.</p>
+              <p className="text-white font-serif text-lg italic">"Serving humanity with compassion & dedication."</p>
             </div>
-            <div className="flex w-full md:w-auto rounded-xl overflow-hidden bg-white/10">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 md:w-64 px-5 py-3 bg-transparent text-white text-sm placeholder:text-white/40 focus:outline-none"
-              />
-              <button className="px-6 py-3 bg-white text-primary-700 font-bold text-sm hover:bg-neutral-100 transition-colors flex items-center gap-2 cursor-pointer shrink-0">
-                Subscribe
-                <ArrowRight className="w-4 h-4" />
-              </button>
+            <div className="flex items-center gap-8 md:gap-12 text-white/80">
+                <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-white">1996</span>
+                    <span className="text-[10px] uppercase tracking-wider text-primary-400">Established</span>
+                </div>
+                <div className="w-px h-8 bg-white/10 hidden md:block"></div>
+                <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-white">28+</span>
+                    <span className="text-[10px] uppercase tracking-wider text-primary-400">Years Serving</span>
+                </div>
+                <div className="w-px h-8 bg-white/10 hidden md:block"></div>
+                <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-white">5k+</span>
+                    <span className="text-[10px] uppercase tracking-wider text-primary-400">Lives Impacted</span>
+                </div>
             </div>
           </div>
         </div>

@@ -42,17 +42,19 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 shrink-0">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs tracking-tight transition-all duration-500 ${
-              scrolled ? 'bg-primary-600 text-white' : 'bg-white/10 text-white border border-white/20'
-            }`}>
-              AL
+          <Link to="/" className="flex items-center gap-3 shrink-0 group">
+            <div className={`relative transition-all duration-500 ease-in-out ${scrolled ? 'w-12 h-12' : 'w-16 h-16'}`}>
+                <img 
+                    src="/logo.png" 
+                    alt="Tanzeem Al-Lissan Logo" 
+                    className="w-full h-full object-contain drop-shadow-sm"
+                />
             </div>
             <div className="flex flex-col">
-              <span className={`text-[15px] font-bold tracking-tight leading-none transition-colors duration-500 ${scrolled ? 'text-neutral-900' : 'text-white'}`}>
+              <span className={`font-bold tracking-tight leading-none transition-all duration-500 ${scrolled ? 'text-neutral-900 text-[15px]' : 'text-white text-lg'}`}>
                 Al-Lissan
               </span>
-              <span className={`text-[9px] font-semibold tracking-[0.15em] uppercase leading-none mt-1 transition-colors duration-500 ${scrolled ? 'text-primary-600' : 'text-primary-300'}`}>
+              <span className={`font-semibold tracking-[0.15em] uppercase leading-none mt-1 transition-colors duration-500 ${scrolled ? 'text-primary-600 text-[9px]' : 'text-primary-300 text-[10px]'}`}>
                 Since 1996
               </span>
             </div>

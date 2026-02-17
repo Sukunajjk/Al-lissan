@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Calendar, ArrowRight, Clock, ArrowLeft, Share2 } from 'lucide-react';
+import { Calendar, ArrowRight, Clock, ArrowLeft, Share2, ChevronRight } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { newsArticles } from '../data/siteData';
 
@@ -7,52 +7,71 @@ import { newsArticles } from '../data/siteData';
 function NewsDetail({ article }) {
   return (
     <article className="min-h-screen bg-white">
-      {/* Hero Image */}
-      <div className="relative h-[60vh] w-full overflow-hidden">
-        <img src={article.image.replace('w=600', 'w=1400')} alt={article.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-black/20" />
+      {/* Editorial Hero Image */}
+      <div className="relative h-[70vh] w-full overflow-hidden">
+        <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            src={article.image.replace('w=600', 'w=1600')} 
+            alt={article.title} 
+            className="w-full h-full object-cover" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
         
-        <div className="absolute bottom-0 left-0 w-full p-8 md:p-12">
+        <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
             <div className="max-w-4xl mx-auto">
-                 <Link to="/news" className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors text-sm font-medium">
-                    <ArrowLeft className="w-4 h-4" /> Back to News
+                 <Link to="/news" className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-8 transition-colors text-sm font-medium tracking-wide uppercase">
+                    <ArrowLeft className="w-4 h-4" /> Back to Journal
                  </Link>
-                 <div className="flex items-center gap-4 mb-4 text-sm font-medium text-white/80">
-                    <span className="px-3 py-1 bg-primary-600 text-white rounded-lg">{article.category}</span>
-                    <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {article.date}</span>
-                    <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {article.readTime}</span>
-                 </div>
-                 <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-4 shadow-sm">
+                 
+                 <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-wrap items-center gap-4 mb-6 text-sm font-medium text-white/90"
+                 >
+                    <span className="px-3 py-1 bg-white/20 backdrop-blur-md border border-white/20 text-white rounded-full uppercase tracking-wider text-xs">{article.category}</span>
+                    <span className="flex items-center gap-2"><Calendar className="w-4 h-4 text-white/70" /> {article.date}</span>
+                    <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-white/70" /> {article.readTime}</span>
+                 </motion.div>
+                 
+                 <motion.h1 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-4xl md:text-6xl lg:text-7xl font-serif font-medium text-white leading-tight mb-8"
+                 >
                     {article.title}
-                 </h1>
+                 </motion.h1>
             </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="prose prose-lg prose-neutral max-w-none">
-            <p className="lead text-xl text-neutral-600 font-medium mb-8 border-l-4 border-primary-500 pl-4 bg-neutral-50 py-4 pr-4 rounded-r-lg">
+            <p className="lead text-2xl text-neutral-800 font-serif leading-relaxed mb-10 first-letter:text-5xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:mt-[-5px]">
                 {article.excerpt}
             </p>
-            {/* Placeholder for full content since data file only has excerpts. In a real app, this would be a content field. */}
-            <p className="text-neutral-600 leading-relaxed mb-6">
-                This is the detailed view for the news article. Currently, we haven't migrated the full body text for all articles, but this section would contain the complete story, images, and embedded media related to "{article.title}".
-            </p>
-            <p className="text-neutral-600 leading-relaxed mb-6">
+            <p className="text-neutral-600 leading-relaxed mb-8">
                 At Tanzeem-al-Lissan, we strictly adhere to our mission of providing quality education and rehabilitation. This initiative is a testament to our ongoing commitment to serving the community and expanding our reach to those who need it most.
             </p>
+            
+            <blockquote className="border-l-4 border-primary-600 pl-6 italic text-2xl text-neutral-800 my-10 font-serif">
+                "We are building a future where every child has the tools to succeed, regardless of their challenges."
+            </blockquote>
+
             <p className="text-neutral-600 leading-relaxed">
                 For more information or to get involved, please visit our contact page or reach out to our administration office.
             </p>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-neutral-200 flex items-center justify-between">
-            <span className="font-bold text-neutral-900">Share this article:</span>
+        <div className="mt-16 pt-10 border-t border-neutral-100 flex items-center justify-between">
+            <span className="font-bold text-neutral-900 text-sm uppercase tracking-widest">Share this story</span>
             <div className="flex gap-4">
-                <button className="p-2 rounded-full bg-neutral-100 hover:bg-neutral-200 transition-colors text-neutral-600">
-                    <Share2 className="w-5 h-5" />
+                <button className="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-900 hover:text-white transition-all text-neutral-600">
+                    <Share2 className="w-4 h-4" />
                 </button>
             </div>
         </div>
@@ -69,7 +88,6 @@ export default function News() {
   if (id) {
     const article = newsArticles.find((a) => a.id.toString() === id);
     if (article) return <NewsDetail article={article} />;
-    // If not found, fall through to list (or could show 404)
   }
 
   const featured = newsArticles[0];
@@ -77,64 +95,80 @@ export default function News() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-block text-primary-400 font-semibold text-sm mb-3">News & Updates</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">Latest News</h1>
-            <p className="text-lg text-white/50 leading-relaxed max-w-2xl">
-              Stay informed about our programs, events, achievements, and the latest developments.
+      <section className="bg-neutral-900 text-white pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span className="text-primary-400 font-bold tracking-widest text-sm uppercase mb-4 block">
+                The Journal
+            </span>
+            <h1 className="text-5xl md:text-7xl font-serif font-medium mb-6">Latest Updates</h1>
+            <p className="text-white/50 text-xl max-w-2xl mx-auto">
+                Stories of impact, innovation, and community from Tanzeem Al-Lissan.
             </p>
-          </motion.div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Featured */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
-            <Link to={`/news/${featured.id}`} className="group grid lg:grid-cols-2 gap-0 overflow-hidden bg-neutral-50 rounded-2xl hover:shadow-lg transition-shadow duration-500">
-              <div className="relative h-72 lg:h-96 overflow-hidden rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none">
-                <img src={featured.image} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                <span className="absolute top-5 left-5 px-3 py-1 bg-primary-600 text-white text-xs font-bold rounded-lg uppercase tracking-wider">{featured.category}</span>
-              </div>
-              <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Calendar className="w-3.5 h-3.5" />{featured.date}</span>
-                  <span className="text-neutral-300">|</span>
-                  <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Clock className="w-3.5 h-3.5" />{featured.readTime}</span>
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight mb-4 group-hover:text-primary-600 transition-colors">{featured.title}</h2>
-                <p className="text-neutral-500 leading-relaxed mb-6">{featured.excerpt}</p>
-                <span className="inline-flex items-center gap-2 text-primary-600 font-semibold text-sm group-hover:gap-3 transition-all">
-                  Read Full Article <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
-            </Link>
-          </motion.div>
+          
+          {/* Featured Article - Magazine Cover Style */}
+          <Link to={`/news/${featured.id}`} className="group block mb-20">
+             <div className="grid lg:grid-cols-12 gap-8 items-center cursor-pointer">
+                 <div className="lg:col-span-8 relative overflow-hidden rounded-2xl aspect-[16/9]">
+                     <img src={featured.image} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                 </div>
+                 <div className="lg:col-span-4">
+                      <div className="flex items-center gap-3 mb-4 text-sm font-medium">
+                         <span className="text-primary-600 uppercase tracking-wider">{featured.category}</span>
+                         <span className="w-1 h-1 rounded-full bg-neutral-300"></span>
+                         <span className="text-neutral-500">{featured.date}</span>
+                      </div>
+                      <h2 className="text-3xl md:text-4xl font-serif font-medium text-neutral-900 mb-4 leading-tight group-hover:text-primary-700 transition-colors">
+                          {featured.title}
+                      </h2>
+                      <p className="text-neutral-500 leading-relaxed mb-6 line-clamp-3">
+                          {featured.excerpt}
+                      </p>
+                      <span className="inline-flex items-center text-neutral-900 font-bold text-sm uppercase tracking-wide border-b-2 border-neutral-900 pb-1 group-hover:text-primary-700 group-hover:border-primary-700 transition-colors">
+                          Read Story <ArrowRight className="w-4 h-4 ml-2" />
+                      </span>
+                 </div>
+             </div>
+          </Link>
 
-          {/* Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Article Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 border-t border-neutral-200 pt-20">
             {rest.map((article, i) => (
               <motion.div key={article.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <Link to={`/news/${article.id}`} className="group block bg-white rounded-2xl border border-neutral-200/60 overflow-hidden hover:shadow-md transition-all duration-300">
-                  <div className="relative h-52 overflow-hidden">
+                <Link to={`/news/${article.id}`} className="group block h-full flex flex-col">
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-lg mb-6 bg-neutral-100">
                     <img src={article.image} alt={article.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    <span className="absolute top-4 left-4 px-2.5 py-1 bg-primary-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider">{article.category}</span>
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xs text-neutral-400">{article.date}</span>
-                      <span className="text-neutral-300">|</span>
-                      <span className="text-xs text-neutral-400">{article.readTime}</span>
-                    </div>
-                    <h3 className="font-bold text-neutral-900 group-hover:text-primary-600 transition-colors mb-2 leading-snug">{article.title}</h3>
-                    <p className="text-sm text-neutral-500 leading-relaxed line-clamp-2">{article.excerpt}</p>
+                  
+                  <div className="flex-grow flex flex-col">
+                      <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                        <span className="text-primary-600">{article.category}</span>
+                        <span>•</span>
+                        <span>{article.date}</span>
+                      </div>
+                      
+                      <h3 className="text-xl font-serif font-medium text-neutral-900 mb-3 group-hover:text-primary-700 transition-colors">
+                        {article.title}
+                      </h3>
+                      
+                      <p className="text-neutral-500 text-sm leading-relaxed line-clamp-3 mb-4 flex-grow">
+                        {article.excerpt}
+                      </p>
+                      
+                      <div className="flex items-center text-primary-600 text-sm font-bold group-hover:gap-2 transition-all">
+                          Read <ChevronRight className="w-4 h-4 ml-1" />
+                      </div>
                   </div>
                 </Link>
               </motion.div>
             ))}
           </div>
+
         </div>
       </section>
     </>

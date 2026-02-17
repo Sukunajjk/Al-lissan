@@ -1,96 +1,87 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { testimonials } from '../../data/siteData';
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [isPaused, current]);
-
-  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
+  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-20 lg:py-28 bg-primary-50/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <span className="inline-block text-primary-600 font-semibold text-sm mb-3 tracking-wide">Testimonials</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
-            What families say about us
-          </h2>
-        </motion.div>
-
-        <div className="max-w-4xl mx-auto" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="bg-white rounded-2xl shadow-sm border border-neutral-200/60 p-8 md:p-12"
-            >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
-                  <Quote className="w-5 h-5 text-primary-600" />
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-warm-400 text-warm-400" />
-                  ))}
-                </div>
-              </div>
-
-              <p className="text-xl md:text-2xl text-neutral-700 leading-relaxed font-light mb-10">
-                "{testimonials[current].text}"
-              </p>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-sm">
-                  {testimonials[current].avatar}
-                </div>
-                <div>
-                  <p className="font-bold text-neutral-900">{testimonials[current].name}</p>
-                  <p className="text-neutral-500 text-sm">{testimonials[current].role}</p>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="flex items-center justify-between mt-8">
-            <div className="flex gap-2">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`h-2 rounded-full transition-all duration-500 cursor-pointer ${
-                    i === current ? 'w-8 bg-primary-600' : 'w-2 bg-neutral-300 hover:bg-neutral-400'
-                  }`}
-                />
-              ))}
+    <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
+      
+      {/* Background Elements */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            {/* Header Column */}
+            <div className="lg:col-span-4">
+                <motion.div 
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                >
+                    <span className="text-primary-500 font-bold tracking-widest text-sm uppercase mb-4 block">
+                        Voices of Change
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-serif leading-tight mb-8">
+                        Real Stories,<br/>Real Impact.
+                    </h2>
+                    <p className="text-white/50 text-lg leading-relaxed mb-10">
+                        The true measure of our success is the difference we make in the lives of our students and their families.
+                    </p>
+                    
+                    {/* Navigation Buttons */}
+                    <div className="flex gap-4">
+                        <button onClick={prev} className="w-12 h-12 rounded-full border border-white/10 hover:bg-white hover:text-black flex items-center justify-center transition-all duration-300">
+                            <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button onClick={next} className="w-12 h-12 rounded-full border border-white/10 hover:bg-white hover:text-black flex items-center justify-center transition-all duration-300">
+                            <ChevronRight className="w-5 h-5" />
+                        </button>
+                    </div>
+                </motion.div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={prev} className="w-10 h-10 rounded-xl border border-neutral-200 hover:border-primary-300 hover:bg-primary-50 flex items-center justify-center text-neutral-400 hover:text-primary-600 transition-all cursor-pointer">
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button onClick={next} className="w-10 h-10 rounded-xl border border-neutral-200 hover:border-primary-300 hover:bg-primary-50 flex items-center justify-center text-neutral-400 hover:text-primary-600 transition-all cursor-pointer">
-                <ChevronRight className="w-5 h-5" />
-              </button>
+
+            {/* Testimonial Card Column */}
+            <div className="lg:col-span-8">
+                <div className="relative">
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={current}
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            transition={{ duration: 0.5, ease: "circOut" }}
+                            className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/10"
+                        >
+                            <Quote className="w-12 h-12 text-primary-500 mb-8 opacity-50" />
+                            
+                            <blockquote className="text-2xl md:text-4xl font-serif leading-relaxed mb-10 text-white/90">
+                                "{testimonials[current].text}"
+                            </blockquote>
+                            
+                            <div className="flex items-center gap-5">
+                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-xl font-bold text-white shadow-lg">
+                                    {testimonials[current].avatar}
+                                </div>
+                                <div>
+                                    <cite className="not-italic text-lg font-bold block text-white">{testimonials[current].name}</cite>
+                                    <span className="text-white/50 text-sm">{testimonials[current].role}</span>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                    
+                    {/* Decorative Elements */}
+                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary-600/20 rounded-full blur-xl -z-10"></div>
+                </div>
             </div>
-          </div>
+
         </div>
       </div>
     </section>

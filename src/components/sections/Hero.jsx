@@ -1,110 +1,250 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
-import { ArrowRight, Play } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { ArrowRight, ChevronRight, ChevronLeft, Heart, Star, BookOpen, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedCounter from '../ui/AnimatedCounter';
-import { stats } from '../../data/siteData';
+
+const slides = [
+  {
+    id: 1,
+    keyword: "Special Lives",
+    text: "We believe every child deserves a chance to shine. Through education and care.",
+    image: "https://images.unsplash.com/photo-1602052793312-b99c2a9ee797?w=1600&q=80", 
+    theme: "from-primary-300 via-white to-primary-300",
+    badge: {
+        icon: <Star className="w-6 h-6 fill-yellow-500 text-yellow-500" />,
+        title: "Top Rated NGO",
+        subtitle: "In Punjab",
+        color: "bg-neutral-900/90 border-white/10" // Dark card for contrast against image/bg
+    }
+  },
+  {
+    id: 2,
+    keyword: "Hidden Potential",
+    text: "Unlocking abilities through specialized therapy and vocational training programs.",
+    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1600&q=80", 
+    theme: "from-blue-300 via-white to-blue-300",
+    badge: {
+        icon: <BookOpen className="w-6 h-6 fill-blue-500 text-blue-500" />,
+        title: "Vocational Training",
+        subtitle: "Certified Skills",
+        color: "bg-neutral-900/90 border-white/10"
+    }
+  },
+  {
+    id: 3,
+    keyword: "Brighter Futures",
+    text: "Building a world where inclusion is the norm and no one is left behind.",
+    image: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600&q=80", 
+    theme: "from-amber-300 via-white to-amber-300",
+    badge: {
+        icon: <Users className="w-6 h-6 fill-amber-500 text-amber-500" />,
+        title: "5,000+ Lives",
+        subtitle: "Impacted Yearly",
+        color: "bg-neutral-900/90 border-white/10"
+    }
+  }
+];
 
 export default function Hero() {
+  const [current, setCurrent] = useState(0);
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  
+  // Auto-slide
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 5000); 
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+
+  // Parallax
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+
+  // Mouse Parallax
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 25, stiffness: 150 };
+  const mouseXSpring = useSpring(mouseX, springConfig);
+  const moveImage = useTransform(mouseXSpring, [-0.5, 0.5], ["1%", "-1%"]);
+  const moveText = useTransform(mouseXSpring, [-0.5, 0.5], ["-0.5%", "0.5%"]);
+  const moveFloating = useTransform(mouseXSpring, [-0.5, 0.5], ["3%", "-3%"]);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set(clientX / innerWidth - 0.5);
+    mouseY.set(clientY / innerHeight - 0.5);
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <section ref={ref} className="relative min-h-[90vh] flex items-center bg-neutral-900 overflow-hidden">
-      {/* Background Image with Parallax */}
-      <motion.div className="absolute inset-0" style={{ y }}>
-        <img
-          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&q=80"
-          alt="Child smiling"
-          className="w-full h-[120%] object-cover opacity-60"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-neutral-900/20" />
-      </motion.div>
+    // Updated Background: Richer gradient
+    <section ref={ref} className="relative min-h-[100vh] flex items-center bg-[#050505] overflow-hidden pt-20">
+        
+        {/* Richer Background Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-neutral-950 via-neutral-900 to-neutral-900 opacity-80" />
+        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-primary-900/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-blue-900/10 rounded-full blur-[150px] mix-blend-screen pointer-events-none" />
+        
+        {/* Grain Overlay */}
+        <div className="absolute inset-0 z-20 pointer-events-none opacity-[0.03] bg-noise"></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           
-          {/* Content */}
-          <motion.div style={{ opacity }} className="max-w-2xl">
+          {/* Content Left (7 cols) */}
+          <motion.div style={{ y: textY, x: moveText }} className="lg:col-span-7 relative z-20">
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-500/20 border border-primary-500/30 text-primary-300 text-sm font-medium mb-6"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="flex items-center gap-3 mb-8"
             >
-              <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-              Serving Humanity Since 1996
+               <div className="h-[1px] w-12 bg-primary-500/50"></div>
+               <span className="text-primary-300 tracking-[0.2em] text-sm font-medium uppercase">Est. 1996</span>
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6"
-            >
-              Empowering <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-200">Special</span> Lives.
-            </motion.h1>
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[0.9] tracking-tighter mb-10 h-[2.7em]">
+              <span className="block mb-2">Empowering</span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={current}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -40, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "circOut" }}
+                  className={`block font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r ${slides[current].theme} pr-4`}
+                >
+                  {slides[current].keyword}.
+                </motion.span>
+              </AnimatePresence>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg text-white/70 leading-relaxed mb-8 max-w-xl"
-            >
-              From a single room to 20 centers across Punjab. We provide education, therapy, and vocational training to ensure no child is left behind.
-            </motion.p>
+            <div className="h-24 mb-8">
+                <AnimatePresence mode="wait">
+                    <motion.p
+                    key={current}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-xl text-neutral-300 leading-relaxed max-w-xl font-light border-l-2 border-primary-500/30 pl-6"
+                    >
+                    {slides[current].text}
+                    </motion.p>
+                </AnimatePresence>
+            </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex flex-wrap gap-4"
+              layout
+              className="flex flex-wrap gap-6 items-center"
             >
               <Link
                 to="/programs"
-                className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary-900/20 hover:shadow-primary-600/40 flex items-center gap-2"
+                className="group relative px-8 py-5 bg-white text-neutral-900 rounded-full font-bold text-lg transition-all hover:bg-neutral-200 overflow-hidden"
               >
-                Our Programs
-                <ArrowRight className="w-4 h-4" />
+                <div className="absolute inset-0 w-full h-full bg-primary-400/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <span className="relative flex items-center gap-2">
+                    Our Programs <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                </span>
               </Link>
-              <Link
-                to="/about"
-                className="px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/10 text-white rounded-xl font-semibold transition-all flex items-center gap-2"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                Watch Our Story
-              </Link>
+              
+              {/* Slider Controls */}
+              <div className="flex gap-2">
+                <button onClick={prevSlide} className="p-4 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors backdrop-blur-sm">
+                    <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button onClick={nextSlide} className="p-4 rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors backdrop-blur-sm">
+                    <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </motion.div>
+            
           </motion.div>
 
-          {/* Stats Card Overlay */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden lg:block relative"
-          >
-             {/* Abstract Shapes */}
-             <div className="absolute -top-10 -right-10 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl animate-pulse" />
 
-             <div className="grid grid-cols-2 gap-4">
-                {stats.map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ y: -5 }}
-                    className="p-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl hover:bg-white/10 transition-colors"
-                  >
-                    <div className="text-3xl font-bold text-white mb-1">
-                      <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-sm text-white/50">{stat.label}</div>
-                  </motion.div>
-                ))}
-             </div>
-          </motion.div>
+          {/* Image Right (5 cols) */}
+          <div className="lg:col-span-5 relative h-[600px] lg:h-[800px] w-full flex items-center justify-center">
+             
+             {/* Main Image Container */}
+             <motion.div 
+                style={{ x: moveImage, y }}
+                className="relative w-full h-[85%] rounded-[3rem] shadow-2xl shadow-black/50 group"
+             >
+                <div className="absolute inset-0 bg-neutral-900/10 z-10 mix-blend-multiply rounded-[3rem]"></div>
+                
+                 {/* Masked Image */}
+                 <div className="absolute inset-0 rounded-[3rem] overflow-hidden">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        <motion.img
+                            key={current}
+                            initial={{ opacity: 0, scale: 1.1 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.8 }}
+                            src={slides[current].image}
+                            alt={slides[current].keyword}
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                    </AnimatePresence>
+                 </div>
+                
+                {/* Stats Badge - Overlapping Edge (Half inside, Half outside) */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={current}
+                        style={{ x: moveFloating, y: 0 }}
+                        initial={{ opacity: 0, x: 50, scale: 0.9 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: 20, scale: 0.9 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className={`absolute top-12 -right-8 lg:-right-16 z-30 backdrop-blur-md border border-white/10 p-5 rounded-2xl flex items-center gap-4 shadow-2xl ${slides[current].badge.color}`}
+                    >
+                        <div className="bg-white/10 rounded-full p-3 shadow-inner">
+                            {slides[current].badge.icon}
+                        </div>
+                        <div className="pr-2">
+                            <p className="text-white font-bold text-lg leading-tight">{slides[current].badge.title}</p>
+                            <p className="text-white/60 text-xs font-medium uppercase tracking-wider mt-1">{slides[current].badge.subtitle}</p>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Progress Indicators */}
+                <div className="absolute bottom-8 left-8 z-20 flex gap-2">
+                    {slides.map((_, idx) => (
+                        <div 
+                            key={idx}
+                            onClick={() => setCurrent(idx)}
+                            className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${current === idx ? 'w-8 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'}`} 
+                        />
+                    ))}
+                </div>
+             </motion.div>
+
+            {/* Sticky Decoration - Bottom Left */}
+             <motion.div
+                style={{ x: moveFloating, y: 40 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1, duration: 0.8 }}
+                className="absolute bottom-[10%] -left-6 lg:-left-12 z-0 opacity-30 pointer-events-none"
+             >
+                 <div className="w-40 h-40 rounded-full border border-dashed border-white/20 animate-spin-slow"></div>
+             </motion.div>
+
+          </div>
         </div>
       </div>
     </section>
