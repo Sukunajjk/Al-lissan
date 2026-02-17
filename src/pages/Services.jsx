@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Ear, MessageCircle, Activity, Brain, Wrench, Sparkles, HeartPulse, Stethoscope, ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Ear, MessageCircle, Activity, Brain, Wrench, Sparkles, HeartPulse, Stethoscope, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { services } from '../data/siteData';
 import CTASection from '../components/sections/CTASection';
@@ -14,51 +14,63 @@ function ServiceDetail({ service }) {
   
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-end overflow-hidden bg-neutral-900">
-        <div className="absolute inset-0">
-          <img src={service.image.replace('w=600', 'w=1400')} alt={service.title} className="w-full h-full object-cover opacity-60" />
+      <section className="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
+        <motion.div 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0"
+        >
+          <img src={service.image.replace('w=600', 'w=1600')} alt={service.title} className="w-full h-full object-cover opacity-50" />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+        </motion.div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <Link to="/services" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium mb-6 transition-colors">
-              <ArrowLeft className="w-4 h-4" />
-              All Services
+            <Link to="/services" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-medium mb-8 transition-colors uppercase tracking-widest">
+              <ArrowRight className="w-4 h-4 rotate-180" />
+              Return to Services
             </Link>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-primary-600 flex items-center justify-center">
-                <Icon className="w-6 h-6 text-white" />
+            
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary-600 flex items-center justify-center shadow-lg shadow-primary-900/50">
+                <Icon className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
+            
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-white leading-tight mb-6">
               {service.title}
             </h1>
-            <p className="text-lg text-white/60 leading-relaxed max-w-2xl">
+            <p className="text-xl text-white/70 leading-relaxed max-w-2xl font-light">
               {service.desc}
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+            <div className="grid lg:grid-cols-12 gap-16">
                 <div className="lg:col-span-8">
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                        <h2 className="text-2xl font-bold text-neutral-900 mb-6">About This Service</h2>
-                        <p className="text-lg text-neutral-600 leading-relaxed mb-8">
-                            {service.longDesc || service.desc}
-                        </p>
+                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <span className="text-primary-600 font-bold text-sm tracking-wider uppercase mb-3 block">Overview</span>
+                        <h2 className="text-3xl md:text-4xl font-serif text-neutral-900 mb-8">Comprehensive Care</h2>
+                        <div className="prose prose-lg prose-neutral mb-12">
+                            <p className="lead text-xl text-neutral-600 font-medium">
+                                {service.longDesc || service.desc}
+                            </p>
+                            <p>
+                                At Tanzeem-al-Lissan, we believe in a holistic approach. This service is integrated with our educational and vocational programs to ensure that every individual receives continuous, 360-degree support tailored to their specific life stage and goals.
+                            </p>
+                        </div>
                         
-                        <h3 className="text-xl font-bold text-neutral-900 mb-4">What We Provide</h3>
-                        <div className="bg-neutral-50 rounded-2xl p-8 border border-neutral-100 mb-10">
-                            <ul className="grid sm:grid-cols-2 gap-4">
-                                {["Comprehensive Assessment", "Personalized Treatment Plans", "Qualified Specialists", "Modern Equipment", "Progress Monitoring", "Family Counseling"].map((item, i) => (
-                                    <li key={i} className="flex items-center gap-3">
-                                        <CheckCircle2 className="w-5 h-5 text-primary-500 shrink-0" />
-                                        <span className="text-neutral-700">{item}</span>
+                        <h3 className="text-2xl font-serif text-neutral-900 mb-6">Key Features</h3>
+                        <div className="bg-neutral-50 rounded-3xl p-8 md:p-10 border border-neutral-100">
+                            <ul className="grid sm:grid-cols-2 gap-y-4 gap-x-8">
+                                {["Evidence-Based Practices", "Certified Specialists", "Modern Diagnostic Tools", "Family-Centered Approach", "Regular Progress Monitoring", "Interdisciplinary Team"].map((item, i) => (
+                                    <li key={i} className="flex items-start gap-3">
+                                        <CheckCircle2 className="w-5 h-5 text-primary-600 shrink-0 mt-0.5" />
+                                        <span className="text-neutral-700 font-medium">{item}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -66,15 +78,33 @@ function ServiceDetail({ service }) {
                     </motion.div>
                 </div>
                 
-                <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-neutral-900 rounded-2xl p-8 text-white">
-                        <h3 className="text-xl font-bold mb-4">Need Help?</h3>
-                        <p className="text-white/60 mb-6">
-                            Contact us to schedule an appointment or visit our campus for a consultation.
+                <div className="lg:col-span-4 space-y-8">
+                    <div className="bg-neutral-900 rounded-3xl p-8 md:p-10 text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        
+                        <h3 className="text-2xl font-serif mb-4 relative z-10">Start the Journey</h3>
+                        <p className="text-white/60 mb-8 relative z-10">
+                            Early intervention changes lives. Schedule an initial consultation with our specialists today.
                         </p>
-                        <Link to="/contact" className="block w-full py-3 bg-white text-neutral-900 font-bold text-center rounded-xl hover:bg-primary-50 transition-colors">
+                        <Link to="/contact" className="block w-full py-4 bg-white text-neutral-900 font-bold text-center rounded-xl hover:bg-neutral-100 transition-colors relative z-10">
                             Book Appointment
                         </Link>
+                    </div>
+
+                    <div className="p-8 rounded-3xl border border-neutral-200 bg-white">
+                        <h4 className="font-bold text-neutral-900 mb-4">Related Services</h4>
+                        <ul className="space-y-4">
+                            {services.filter(s => s.id !== service.id).slice(0, 3).map(s => (
+                                <li key={s.id}>
+                                    <Link to={`/services/${s.id}`} className="flex items-center gap-3 group">
+                                        <div className="w-10 h-10 rounded-lg bg-neutral-50 flex items-center justify-center text-neutral-400 group-hover:bg-primary-50 group-hover:text-primary-600 transition-colors">
+                                            <ArrowRight className="w-4 h-4 -rotate-45" />
+                                        </div>
+                                        <span className="text-neutral-600 font-medium group-hover:text-primary-700 transition-colors">{s.title}</span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -89,7 +119,6 @@ function ServiceDetail({ service }) {
 export default function Services() {
   const { id } = useParams();
 
-  // If ID present, show detail view
   if (id) {
     const service = services.find((s) => s.id === id);
     if (service) return <ServiceDetail service={service} />;
@@ -98,80 +127,119 @@ export default function Services() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 bg-neutral-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-            <div className="absolute right-0 top-0 w-96 h-96 bg-primary-600 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      <section className="relative pt-32 pb-24 bg-neutral-900 overflow-hidden">
+        {/* Abstract Background */}
+        <div className="absolute inset-0">
+             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary-900/30 rounded-full blur-[100px] pointer-events-none"></div>
+             <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none"></div>
         </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
-          >
-            Clinical & Rehabilitation <span className="text-primary-400">Services</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed"
-          >
-            Comprehensive, evidence-based therapies designed to empower individuals with special needs. From diagnosis to rehabilitation, we are with you every step of the way.
-          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <span className="text-primary-400 font-bold tracking-widest text-sm uppercase mb-6 block">
+                  Holistic Ecosystem
+              </span>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium text-white mb-8 tracking-tight">
+                Clinical Excellence
+              </h1>
+              <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-light">
+                We view rehabilitation as a connected journey. Our services overlap and integrate to support the whole child—physically, mentally, and emotionally.
+              </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20">
+      {/* Services "Ecosystem" Grid */}
+      <section className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => {
               const Icon = iconMap[service.icon] || Activity;
               return (
                 <motion.div
                   key={service.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
+                  className="flex"
                 >
                   <Link 
                     to={`/services/${service.id}`}
-                    className="block h-full bg-white rounded-2xl p-8 border border-neutral-100 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                    className="flex flex-col flex-grow bg-white rounded-3xl p-8 border border-neutral-100 shadow-sm hover:shadow-2xl hover:shadow-neutral-200/50 hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden"
                   >
-                    <div className="w-14 h-14 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary-600 group-hover:text-white transition-all duration-300">
-                      <Icon className="w-7 h-7" />
+                    {/* Hover Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div className="relative z-10">
+                        <div className="w-16 h-16 rounded-2xl bg-neutral-50 group-hover:bg-primary-600 flex items-center justify-center mb-8 transition-colors duration-500 shadow-inner group-hover:shadow-lg group-hover:shadow-primary-600/30">
+                          <Icon className="w-8 h-8 text-neutral-400 group-hover:text-white transition-colors duration-500" />
+                        </div>
+                        
+                        <h3 className="text-2xl font-serif text-neutral-900 mb-4 group-hover:text-primary-700 transition-colors">
+                          {service.title}
+                        </h3>
+                        
+                        <p className="text-neutral-500 leading-relaxed mb-8 line-clamp-3">
+                          {service.desc}
+                        </p>
                     </div>
-                    <h3 className="text-xl font-bold text-neutral-900 mb-3 group-hover:text-primary-600 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-neutral-500 leading-relaxed mb-6 line-clamp-3">
-                      {service.desc}
-                    </p>
                     
-                    <span className="inline-flex items-center gap-2 text-primary-600 font-semibold text-sm group-hover:gap-3 transition-all">
-                      View Service <ArrowRight className="w-4 h-4" />
-                    </span>
+                    <div className="mt-auto relative z-10 pt-6 border-t border-neutral-100 group-hover:border-primary-100 transition-colors">
+                        <span className="inline-flex items-center gap-2 text-neutral-900 font-bold text-sm uppercase tracking-wide group-hover:text-primary-700 transition-colors">
+                            Explore Service <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </span>
+                    </div>
                   </Link>
                 </motion.div>
               );
             })}
           </div>
+
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-neutral-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-6">Need a Consultation?</h2>
-            <p className="text-neutral-600 mb-8 max-w-2xl mx-auto">
-                Visit our Dhobi Ghat campus or any Sehara Centre for a comprehensive assessment. Our team is ready to support your child's journey.
-            </p>
-            <Link to="/contact" className="inline-flex h-12 items-center justify-center rounded-xl bg-primary-600 px-8 font-medium text-white transition-colors hover:bg-primary-700 shadow-lg shadow-primary-600/20">
-                Book an Appointment
-            </Link>
+      {/* Process "Connected" Section */}
+      <section className="py-24 bg-neutral-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div className="text-center mb-16">
+                 <h2 className="text-4xl font-serif text-neutral-900 mb-4">A Unified Path to Progress</h2>
+                 <p className="text-neutral-500">How our services connect to build a future.</p>
+             </div>
+
+             <div className="relative">
+                 {/* Connection Line */}
+                 <div className="absolute top-1/2 left-0 w-full h-px bg-neutral-200 -translate-y-1/2 hidden md:block border-t border-dashed border-neutral-300"></div>
+
+                 <div className="grid md:grid-cols-4 gap-8 relative z-10">
+                     {[
+                         { step: "01", title: "Diagnosis", desc: "Scientific Assessment" },
+                         { step: "02", title: "Therapy", desc: "Targeted Intervention" },
+                         { step: "03", title: "Education", desc: "Academic Integration" },
+                         { step: "04", title: "Skills", desc: "Vocational Training" }
+                     ].map((item, i) => (
+                         <motion.div 
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.15 }}
+                            className="bg-white p-8 rounded-2xl text-center shadow-sm border border-neutral-100"
+                         >
+                             <div className="inline-block px-3 py-1 bg-neutral-900 text-white text-xs font-bold rounded-full mb-4">
+                                 STEP {item.step}
+                             </div>
+                             <h3 className="text-xl font-serif font-medium text-neutral-900 mb-2">{item.title}</h3>
+                             <p className="text-sm text-neutral-500">{item.desc}</p>
+                         </motion.div>
+                     ))}
+                 </div>
+             </div>
         </div>
       </section>
+
+      <CTASection />
     </div>
   );
 }

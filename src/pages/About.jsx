@@ -1,10 +1,127 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import CTASection from '../components/sections/CTASection';
 import { timeline, stats } from '../data/siteData';
+
+const SnakeConnector = ({ isEven, isLast }) => {
+    const containerRef = useRef(null);
+    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const observer = new ResizeObserver(([entry]) => {
+            if (entry) {
+                setDimensions({
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height
+                });
+            }
+        });
+
+        observer.observe(containerRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    if (isLast) return null;
+
+    // Dimensions
+    const w = dimensions.width;
+    const h = dimensions.height;
+    const radius = 40; // Fixed corner radius
+    
+    let d = "";
+    if (w > 0 && h > 0) {
+        // Calculate exact dot positions
+        // Item Structure: [45% Card] [10% Spacer] [45% Empty]
+        // Left Card Dot (isEven): 45% + 3.5rem (56px).
+        // Right Card Dot (!isEven): 55% - 3.5rem (56px).
+        // Since container is centered, these dots are effectively in the very center spine of the layout.
+        const dotLeftX = (w * 0.45) + 56;
+        const dotRightX = (w * 0.55) - 56;
+
+        let startX, endX;
+
+        if (isEven) {
+            // Left Card (Item 0) -> Connect to Right Card (Item 1)
+            // Connection: Center(ish) -> Center(ish).
+            // Style: "Snake" / Bracket Shape.
+            // Shape: Start -> Curve Right -> Down -> Curve Left -> End.
+            // This creates a ")" shape.
+            
+            startX = dotLeftX;
+            endX = dotRightX;
+            
+            // "Bulge" to the right. 
+            // We want to go slightly into the empty space on the right.
+            // Start is approx Center. Go Right 100px?
+            const bulgeX = startX + 100;
+            
+            d = `
+                M ${startX} 0 
+                Q ${bulgeX} 0 ${bulgeX} ${radius}
+                V ${h - radius}
+                Q ${bulgeX} ${h} ${endX} ${h}
+            `;
+        } else {
+            // Right Card (Item 1) -> Connect to Left Card (Item 2)
+            // Shape: Start -> Curve Left -> Down -> Curve Right -> End.
+            // This creates a "(" shape.
+            
+            startX = dotRightX;
+            endX = dotLeftX;
+            
+            // "Bulge" to the left.
+            const bulgeX = startX - 100;
+            
+            d = `
+                M ${startX} 0 
+                Q ${bulgeX} 0 ${bulgeX} ${radius}
+                V ${h - radius}
+                Q ${bulgeX} ${h} ${endX} ${h}
+            `;
+        }
+    }
+
+    return (
+        <div 
+            ref={containerRef}
+            className="absolute top-1/2 left-0 right-0 pointer-events-none z-0" 
+            style={{ height: '100%' }} // Connects Center of Current to Center of Next
+        >
+            <svg className="w-full h-full overflow-visible">
+                 <defs>
+                    <linearGradient id="gradient-line" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#00c64d" />
+                        <stop offset="100%" stopColor="#00a540" />
+                    </linearGradient>
+                </defs>
+                
+                {d && (
+                    <>
+                        {/* Track */}
+                        <path d={d} stroke="#e5e5e5" strokeWidth="3" fill="none" />
+                        
+                        {/* Progress */}
+                        <motion.path 
+                            d={d} 
+                            stroke="url(#gradient-line)" 
+                            strokeWidth="3" 
+                            fill="none" 
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            viewport={{ once: true, margin: "-10%" }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                        />
+                    </>
+                )}
+            </svg>
+        </div>
+    );
+};
 
 const values = [
   { icon: BookOpen, title: "Evidence-Based", desc: "Programs built on research-validated methods and internationally recognized standards." },
@@ -162,43 +279,42 @@ export default function About() {
                    </div>
 
                    {/* Connector Lines (The Snake) */}
-                   {!isLast && (
-                     <div className="absolute inset-x-0 w-full h-full pointer-events-none -z-10">
-                        {/* 
-                           If Even (Left Card):
-                           Line needs to go from Center-Right -> Right Edge -> Down -> Center-Right
-                         */}
-                        {isEven ? (
-                           // Right Bracket
-                           <div className="absolute top-1/2 left-1/2 w-[50%] h-[100%] border-t-4 border-r-4 border-b-4 border-primary-200 rounded-tr-[5rem] rounded-br-[5rem]"
-                                style={{ transform: 'translateY(2px)' }} // Slight adj
-                           />
-                        ) : (
-                           // Left Bracket
-                           <div className="absolute top-1/2 right-1/2 w-[50%] h-[100%] border-t-4 border-l-4 border-b-4 border-primary-200 rounded-tl-[5rem] rounded-bl-[5rem]" 
-                                style={{ transform: 'translateY(2px)' }} 
-                           />
-                        )}
-                        
-                        {/* Connection Crossbar (Optional fill) */}
-                     </div>
-                   )}
+                   <SnakeConnector isEven={isEven} isLast={isLast} />
                 </div>
               )
             })}
           </div>
 
           {/* Mobile Logic */}
-          <div className="md:hidden space-y-8 pl-4 border-l-2 border-primary-100 relative">
+          <div className="md:hidden space-y-8 pl-4 relative">
+             {/* Continuous Vertical Line */}
+             <div className="absolute left-[27px] top-6 bottom-6 w-1 bg-neutral-200"></div>
+             <motion.div 
+                className="absolute left-[27px] top-6 w-1 bg-primary-500 origin-top"
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 2, ease: "linear" }}
+                style={{ height: 'calc(100% - 48px)' }}
+             />
+
              {timeline.map((item, i) => (
-               <div key={item.year} className="relative pl-8">
-                  <div className="absolute top-6 -left-[9px] w-4 h-4 rounded-full bg-white border-4 border-primary-500" />
+               <motion.div 
+                 key={item.year} 
+                 initial={{ opacity: 0, x: -20 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 viewport={{ once: true, margin: "-50px" }}
+                 className="relative pl-12"
+               >
+                  {/* Dot */}
+                  <div className="absolute top-6 left-0 w-6 h-6 rounded-full bg-white border-4 border-primary-500 z-10" />
+                  
                   <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
                      <span className="text-primary-600 font-bold text-sm mb-2 block">{item.year}</span>
                      <h3 className="text-xl font-bold text-neutral-900 mb-2">{item.title}</h3>
                      <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
-               </div>
+               </motion.div>
              ))}
           </div>
 

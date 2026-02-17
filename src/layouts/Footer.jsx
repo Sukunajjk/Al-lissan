@@ -67,8 +67,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-9 h-9 rounded-xl bg-primary-600 flex items-center justify-center font-bold text-xs text-white">
-                AL
+              <div className="w-12 h-12 relative flex-shrink-0">
+                 <img src="/logo.png" alt="Al-Lissan" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-[15px] font-bold text-white tracking-tight leading-none">Al-Lissan</span>

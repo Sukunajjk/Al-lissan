@@ -8,9 +8,10 @@ const categories = ["All", ...new Set(galleryImages.map((img) => img.category))]
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState(null);
-  const [loadedImages, setLoadedImages] = useState({});
-
+  
+  // Images filtered by category
   const filtered = activeCategory === "All" ? galleryImages : galleryImages.filter((img) => img.category === activeCategory);
+  
   const currentIndex = selectedImage ? filtered.findIndex(img => img.id === selectedImage.id) : -1;
 
   const handlePrev = useCallback(() => {
@@ -39,106 +40,144 @@ export default function Gallery() {
 
   return (
     <>
-      <section className="page-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="inline-block text-primary-400 font-semibold text-sm mb-3">Gallery</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight mb-6">Moments of Impact</h1>
-            <p className="text-lg text-white/50 leading-relaxed max-w-2xl">
-              A visual journey through our programs, events, and the moments that define our work.
-            </p>
-          </motion.div>
+      <section className="relative pt-32 pb-20 bg-neutral-900 text-white min-h-[50vh] flex flex-col justify-center">
+        {/* Background Texture */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-mosaic.png')] opacity-10"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-900/30 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                <span className="text-primary-400 font-bold tracking-widest text-sm uppercase mb-6 block">
+                    Our Archives
+                </span>
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium mb-8">
+                    Moments of Impact
+                </h1>
+                <p className="text-xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed">
+                    A visual chronicle of hope, resilience, and the daily victories of our children.
+                </p>
+            </motion.div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section className="py-20 bg-white min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-12">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 text-sm font-medium rounded-xl transition-all cursor-pointer ${
-                    activeCategory === cat
-                      ? 'bg-primary-600 text-white shadow-sm shadow-primary-600/20'
-                      : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200/60'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+            
+            {/* Filter Navigation */}
+            <div className="flex flex-wrap justify-center gap-3 mb-16">
+                {categories.map((cat) => (
+                    <button
+                        key={cat}
+                        onClick={() => setActiveCategory(cat)}
+                        className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                            activeCategory === cat
+                            ? 'bg-neutral-900 text-white shadow-lg scale-105'
+                            : 'bg-white text-neutral-500 border border-neutral-200 hover:border-neutral-900 hover:text-neutral-900'
+                        }`}
+                    >
+                        {cat}
+                    </button>
+                ))}
             </div>
-            <p className="text-sm text-neutral-500 tabular-nums">
-              <span className="font-semibold text-neutral-800">{filtered.length}</span> images
-            </p>
-          </div>
 
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((image, index) => (
-                <motion.div
-                  key={image.id}
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.04 }}
-                  onClick={() => setSelectedImage(image)}
-                  className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer bg-neutral-200"
-                >
-                  {!loadedImages[image.id] && <div className="absolute inset-0 bg-neutral-200 animate-pulse rounded-xl" />}
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    loading="lazy"
-                    onLoad={() => setLoadedImages(prev => ({ ...prev, [image.id]: true }))}
-                    className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${loadedImages[image.id] ? 'opacity-100' : 'opacity-0'}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl" />
-                  <div className="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <ZoomIn className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-[10px] font-bold text-white/60 uppercase tracking-wider">{image.category}</span>
-                    <p className="text-white text-sm font-medium mt-1">{image.alt}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+            {/* Masonry-style Grid */}
+            <motion.div layout className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
+                <AnimatePresence>
+                    {filtered.map((image, index) => (
+                        <motion.div
+                            key={image.id}
+                            layout
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.4 }}
+                            onClick={() => setSelectedImage(image)}
+                            className="break-inside-avoid group cursor-pointer relative rounded-2xl overflow-hidden bg-neutral-100"
+                        >
+                            <img
+                                src={image.src.replace('w=600', 'w=800')}
+                                alt={image.alt}
+                                loading="lazy"
+                                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div className="absolute top-4 right-4 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white">
+                                    <ZoomIn className="w-5 h-5" />
+                                </div>
+                                
+                                <div className="absolute bottom-0 left-0 w-full p-6 text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-primary-300 mb-1 block">{image.category}</span>
+                                    <p className="font-serif text-lg">{image.alt}</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+            </motion.div>
+
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* Lightbox Overlay */}
       <AnimatePresence>
         {selectedImage && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onClick={() => setSelectedImage(null)}>
-            <button onClick={() => setSelectedImage(null)} className="absolute top-6 right-6 w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer z-10">
-              <X className="w-5 h-5" />
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
+            onClick={() => setSelectedImage(null)}
+          >
+            {/* Controls */}
+            <button onClick={() => setSelectedImage(null)} className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors z-20">
+              <X className="w-6 h-6" />
             </button>
+            
             {currentIndex > 0 && (
-              <button onClick={(e) => { e.stopPropagation(); handlePrev(); }} className="absolute left-4 md:left-8 w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer z-10">
-                <ChevronLeft className="w-5 h-5" />
+              <button 
+                onClick={(e) => { e.stopPropagation(); handlePrev(); }} 
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors z-20"
+              >
+                <ChevronLeft className="w-6 h-6" />
               </button>
             )}
+            
             {currentIndex < filtered.length - 1 && (
-              <button onClick={(e) => { e.stopPropagation(); handleNext(); }} className="absolute right-4 md:right-8 w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer z-10">
-                <ChevronRight className="w-5 h-5" />
+              <button 
+                onClick={(e) => { e.stopPropagation(); handleNext(); }} 
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors z-20"
+              >
+                <ChevronRight className="w-6 h-6" />
               </button>
             )}
-            <motion.div key={selectedImage.id} initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} onClick={(e) => e.stopPropagation()} className="relative max-w-5xl w-full">
-              <img src={selectedImage.src.replace('w=600', 'w=1200')} alt={selectedImage.alt} className="w-full max-h-[80vh] object-contain rounded-xl" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-xl">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold text-white/50 uppercase tracking-wider">{selectedImage.category}</span>
-                    <p className="text-white font-medium mt-1">{selectedImage.alt}</p>
-                  </div>
-                  <span className="text-white/40 text-sm tabular-nums">{currentIndex + 1} / {filtered.length}</span>
-                </div>
-              </div>
+
+            {/* Image Container */}
+            <motion.div 
+                key={selectedImage.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-7xl w-full max-h-[90vh] flex flex-col md:flex-row gap-8 bg-black/50 rounded-3xl overflow-hidden p-1"
+            >
+               <div className="flex-grow flex items-center justify-center bg-black/20 rounded-2xl overflow-hidden">
+                   <img 
+                    src={selectedImage.src.replace('w=600', 'w=1600')} 
+                    alt={selectedImage.alt} 
+                    className="max-w-full max-h-[85vh] object-contain" 
+                   />
+               </div>
             </motion.div>
+             
+            {/* Caption (Floating) */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-6 py-3 rounded-full text-white text-sm md:text-base border border-white/10">
+                <span className="text-primary-400 font-bold mr-3">{selectedImage.category}</span>
+                <span className="opacity-80">{selectedImage.alt}</span>
+                <span className="ml-4 opacity-40 text-xs border-l border-white/20 pl-4">{currentIndex + 1} / {filtered.length}</span>
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
