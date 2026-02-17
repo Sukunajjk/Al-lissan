@@ -355,7 +355,7 @@ export default function Programs() {
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
               <div className="rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Our impact"
+                <img src="/900.600.png" alt="Our impact"
                   className="w-full h-[450px] object-cover" />
               </div>
             </motion.div>

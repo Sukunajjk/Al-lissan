@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Heart, Calendar, Building2, Users, BookOpen, Lightbulb, Shield, Globe, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import CTASection from '../components/sections/CTASection';
@@ -185,13 +185,13 @@ export default function About() {
 
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="space-y-4">
               <div className="relative rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Children in rehabilitation" className="w-full h-80 object-cover" />
+                <img src="/111.jpg" alt="Children in rehabilitation" className="w-full h-80 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
                   <p className="text-white/80 text-sm">Empowering children since 1996</p>
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=80" alt="Special education classroom" className="w-full h-64 object-cover" />
+                <img src="/900.600-1.png" alt="Special education classroom" className="w-full h-64 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
                   <p className="text-white/80 text-sm">State-of-the-art facilities</p>
                 </div>

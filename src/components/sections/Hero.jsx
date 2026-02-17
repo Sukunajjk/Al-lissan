@@ -7,40 +7,40 @@ import AnimatedCounter from '../ui/AnimatedCounter';
 const slides = [
   {
     id: 1,
-    keyword: "Special Lives",
-    text: "We believe every child deserves a chance to shine. Through education and care.",
-    image: "https://images.unsplash.com/photo-1602052793312-b99c2a9ee797?w=1600&q=80", 
+    keyword: "Empowering Lives",
+    text: "From 6 students in 1996 to thousands of success stories. We provide specialized education for hearing-impaired and special children.",
+    image: "/bn_slider.jpg", 
     theme: "from-primary-300 via-white to-primary-300",
     badge: {
         icon: <Star className="w-6 h-6 fill-yellow-500 text-yellow-500" />,
-        title: "Top Rated NGO",
-        subtitle: "In Punjab",
-        color: "bg-neutral-900/90 border-white/10" // Dark card for contrast against image/bg
+        title: "Danish Centre",
+        subtitle: "Since 1996",
+        color: "bg-neutral-900/90 border-white/10"
     }
   },
   {
     id: 2,
-    keyword: "Hidden Potential",
-    text: "Unlocking abilities through specialized therapy and vocational training programs.",
-    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1600&q=80", 
+    keyword: "Holistic Care",
+    text: "Comprehensive therapy for Autism, CP, and Speech disorders through Al-Masoom and IFRA centres.",
+    image: "/900.600.png", 
     theme: "from-blue-300 via-white to-blue-300",
     badge: {
-        icon: <BookOpen className="w-6 h-6 fill-blue-500 text-blue-500" />,
-        title: "Vocational Training",
-        subtitle: "Certified Skills",
+        icon: <Heart className="w-6 h-6 fill-red-500 text-red-500" />,
+        title: "Therapy & Rehab",
+        subtitle: "Expert Care",
         color: "bg-neutral-900/90 border-white/10"
     }
   },
   {
     id: 3,
-    keyword: "Brighter Futures",
-    text: "Building a world where inclusion is the norm and no one is left behind.",
-    image: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600&q=80", 
+    keyword: "Future Ready",
+    text: "Reviewing vocational skills and economic independence through Huner Gah and Computer Training Centres.",
+    image: "/720.800.png", 
     theme: "from-amber-300 via-white to-amber-300",
     badge: {
-        icon: <Users className="w-6 h-6 fill-amber-500 text-amber-500" />,
-        title: "5,000+ Lives",
-        subtitle: "Impacted Yearly",
+        icon: <Award className="w-6 h-6 fill-amber-500 text-amber-500" />,
+        title: "Vocational Skills",
+        subtitle: "Economic Freedom",
         color: "bg-neutral-900/90 border-white/10"
     }
   }

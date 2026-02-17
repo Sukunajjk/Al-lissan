@@ -64,7 +64,7 @@ export default function VisionMission() {
                 className="lg:col-span-5 relative"
             >
                <div className="aspect-[4/5] bg-neutral-100 rounded-sm overflow-hidden relative">
-                   <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80" alt="Vision" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+                   <img src="/720.800.png" alt="Vision" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
                    <div className="absolute inset-0 ring-1 ring-inset ring-black/10"></div>
                </div>
                <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-neutral-100 -z-10"></div>
@@ -146,7 +146,7 @@ export default function VisionMission() {
                 className="lg:col-span-5 order-1 lg:order-2"
             >
                  <div className="aspect-square rounded-full overflow-hidden border-4 border-white/5 relative">
-                     <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=80" alt="Mission" className="w-full h-full object-cover opacity-80" />
+                     <img src="/bn_slider.jpg" alt="Mission" className="w-full h-full object-cover opacity-80" />
                      <div className="absolute inset-0 bg-gradient-to-tr from-primary-900/50 to-transparent mix-blend-multiply"></div>
                  </div>
             </motion.div>
