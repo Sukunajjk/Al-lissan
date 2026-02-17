@@ -9,7 +9,7 @@ const slides = [
     id: 1,
     keyword: "Empowering Lives",
     text: "From 6 students in 1996 to thousands of success stories. We provide specialized education for hearing-impaired and special children.",
-    image: "/bn_slider.jpg", 
+    image: import.meta.env.BASE_URL + "bn_slider.jpg", 
     theme: "from-primary-300 via-white to-primary-300",
     badge: {
         icon: <Star className="w-6 h-6 fill-yellow-500 text-yellow-500" />,
@@ -22,7 +22,7 @@ const slides = [
     id: 2,
     keyword: "Holistic Care",
     text: "Comprehensive therapy for Autism, CP, and Speech disorders through Al-Masoom and IFRA centres.",
-    image: "/900.600.png", 
+    image: import.meta.env.BASE_URL + "900.600.png", 
     theme: "from-blue-300 via-white to-blue-300",
     badge: {
         icon: <Heart className="w-6 h-6 fill-red-500 text-red-500" />,
@@ -35,7 +35,7 @@ const slides = [
     id: 3,
     keyword: "Future Ready",
     text: "Reviewing vocational skills and economic independence through Huner Gah and Computer Training Centres.",
-    image: "/720.800.png", 
+    image: import.meta.env.BASE_URL + "720.800.png", 
     theme: "from-amber-300 via-white to-amber-300",
     badge: {
         icon: <Award className="w-6 h-6 fill-amber-500 text-amber-500" />,

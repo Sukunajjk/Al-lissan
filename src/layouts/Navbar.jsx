@@ -45,7 +45,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-4 shrink-0 group">
             <div className={`relative transition-all duration-500 ease-in-out ${scrolled ? 'w-14 h-14' : 'w-20 h-20'}`}>
                 <img 
-                    src="/logo.png" 
+                    src={import.meta.env.BASE_URL + "logo.png"} 
                     alt="Tanzeem Al-Lissan Logo" 
                     className="w-full h-full object-contain drop-shadow-sm"
                 />

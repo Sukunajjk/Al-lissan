@@ -1,3 +1,10 @@
+const getPath = (path) => {
+  const base = import.meta.env.BASE_URL;
+  return base.endsWith('/') && path.startsWith('/')
+    ? base + path.slice(1)
+    : base + path;
+};
+
 export const siteConfig = {
   name: "Tanzeem-al-Lissan",
   tagline: "Empowering Special Children Since 1996",
@@ -60,7 +67,7 @@ export const services = [
     title: "Audiometry & Assessment", 
     desc: "Complete hearing assessment including PTA, Tympanometry, and ABR by qualified audiologists.", 
     icon: "Ear",
-    image: "/111.jpg",
+    image: getPath("/111.jpg"),
     longDesc: "Our Audiometry clinic, established in 2004, is equipped with state-of-the-art diagnostic tools including Pure Tone Audiometry, Tympanometry, and Brainstem Evoked Response Audiometry (BERA/ABR). We provide free assessments to ensure early detection and management of hearing impairments."
   },
   { 
@@ -68,7 +75,7 @@ export const services = [
     title: "Speech & Language Therapy", 
     desc: "Evidence-based therapy for speech delays, articulation issues, and communication disorders.", 
     icon: "MessageCircle",
-    image: "/900.600-1.png",
+    image: getPath("/900.600-1.png"),
     longDesc: "This clinical unit deals with communication, speech, language, and swallowing disorders. Our multidisciplinary team treats conditions like aphasia, apraxia, stammering, and cleft palate. We offer individual and group sessions for children and adults to improve functional communication."
   },
   { 
@@ -76,7 +83,7 @@ export const services = [
     title: "Physiotherapy & Rehab", 
     desc: "Rehabilitation for CP, stroke, and physical disabilities, including a Mobile Unit for home care.", 
     icon: "Activity",
-    image: "/cover.contact.jpg",
+    image: getPath("/cover.contact.jpg"),
     longDesc: "We provide comprehensive physical rehabilitation for Cerebral Palsy, stroke, and musculoskeletal conditions. Services include gait training, pain management, and sensory integration. Our new Mobile Physiotherapy Unit ensures home-based care for those unable to travel."
   },
   { 
@@ -84,7 +91,7 @@ export const services = [
     title: "Psychological Services", 
     desc: "IQ testing, behavioral assessment, and counseling for emotional well-being.", 
     icon: "Brain",
-    image: "/900.600.png",
+    image: getPath("/900.600.png"),
     longDesc: "Our clinical psychologists conduct standardized assessments (IQ, behavioral analysis) and provide counseling for emotional and behavioral challenges (ADHD, ODD). We support families with guidance on managing developmental disorders and fostering mental health."
   },
   { 
@@ -92,7 +99,7 @@ export const services = [
     title: "Occupational Therapy", 
     desc: "Enhancing fine motor skills and sensory integration for daily living independence.", 
     icon: "Activity",
-    image: "/720.800.png",
+    image: getPath("/720.800.png"),
     longDesc: "Focused on developing independence, our OT unit works on fine motor skills, sensory processing, and self-care activities. We help children with autism and developmental delays master daily tasks and improve their quality of life."
   },
   { 
@@ -100,7 +107,7 @@ export const services = [
     title: "Vocational Training", 
     desc: "Market-oriented skills training (IT, Repairing, Tailoring) for economic independence.", 
     icon: "Wrench",
-    image: "/bn_slider.jpg",
+    image: getPath("/bn_slider.jpg"),
     longDesc: "Hunnar Ghah offers courses in computer applications, mobile repairing, AC/fridge repair, tailoring, and beautician skills. Our goal is to empower special needs youth to become largely self-reliant and productive members of society."
   },
 ];
@@ -177,7 +184,7 @@ export const impactStories = [
     before: "Limited opportunities for special needs children in regular schools.",
     after: "Launched pilot project in Dhobi Ghat Main Campus and ten Sehara Centres for equal learning opportunities.",
     duration: "Ongoing",
-    image: "/111.jpg",
+    image: getPath("/111.jpg"),
   },
   {
     name: "ADP IT Student",
@@ -186,7 +193,7 @@ export const impactStories = [
     before: "Faced barriers to higher education due to hearing impairment.",
     after: "Pursuing Associate Degree in IT exclusively designed for hearing-impaired students to gain employable skills.",
     duration: "2 Years",
-    image: "/admission-form-TAL-pdf.jpg",
+    image: getPath("/admission-form-TAL-pdf.jpg"),
   },
   {
     name: "Rural Outreach",
@@ -195,7 +202,7 @@ export const impactStories = [
     before: "Physically challenged individuals in rural areas could not afford or access regular treatment.",
     after: "Mobile Physiotherapy Unit now provides home-based therapy to underserved patients.",
     duration: "New Launch",
-    image: "/cover.contact.jpg",
+    image: getPath("/cover.contact.jpg"),
   },
 ];
 
@@ -215,7 +222,7 @@ export const programs = [
     shortTitle: "Hearing Impaired Education",
     description: "Providing specialized education from Nursery to Matric for hearing-impaired children. Features multi-sensory rooms, speech therapy, and free hearing aids. Established in 1996, it has grown from 6 students to over 200, following the Early Years Foundation Stage Framework.",
     icon: "Ear",
-    image: "/111.jpg",
+    image: getPath("/111.jpg"),
     badge: "Flagship",
     color: "from-cyan-500 to-blue-600",
   },
@@ -225,7 +232,7 @@ export const programs = [
     shortTitle: "Rural Education (SEHARA)",
     description: "Project SEHARA (Special Education for Hearing impaired in Accessible Rural Areas) operates 15 centres in rural Faisalabad (e.g., Satiana, Shahkot). It brings quality education, free hearing aids, and vocational training to children in remote villages who would otherwise lack access.",
     icon: "Globe",
-    image: "/900.600-1.png",
+    image: getPath("/900.600-1.png"),
     badge: "Rural Outreach",
     color: "from-green-500 to-emerald-600",
   },
@@ -235,7 +242,7 @@ export const programs = [
     shortTitle: "Intellectual Development",
     description: "Specialized units for CP, Down Syndrome, ADHD, Autism, and slow learners. Uses Individualized Education Plans (IEPs) focusing on cognition, self-help skills, and behavior management. Facilities include free transport and lunch.",
     icon: "Brain",
-    image: "/900.600.png",
+    image: getPath("/900.600.png"),
     badge: null,
     color: "from-violet-500 to-purple-600",
   },
@@ -245,7 +252,7 @@ export const programs = [
     shortTitle: "Autism Rehabilitation",
     description: "Scientific, evidence-based interventions (ABA, TEACCH, PECS) for children with Autism Spectrum Disorder. Includes sensory integration, occupational therapy, and virtual learning groups. Recognized as a leading autism provider in Faisalabad.",
     icon: "Sparkles", 
-    image: "/720.800.png",
+    image: getPath("/720.800.png"),
     badge: "Specialized",
     color: "from-emerald-500 to-teal-600",
   },
@@ -255,7 +262,7 @@ export const programs = [
     shortTitle: "Physiotherapy & Rehab",
     description: "Comprehensive physiotherapy for children and adults (CP, Stroke, Trauma). Features advanced therapeutic equipment, gait training, and multidisciplinary assessment. Supports holistic development alongside physical rehabilitation.",
     icon: "Activity", 
-    image: "/cover.contact.jpg",
+    image: getPath("/cover.contact.jpg"),
     badge: "Mobile Unit Available",
     color: "from-rose-500 to-pink-600",
   },
@@ -265,7 +272,7 @@ export const programs = [
     shortTitle: "Higher Education",
     description: "An HEC-recognized institution offering intermediate, degree, and postgraduate programs. Includes the unique ADP in Information Technology for hearing-impaired students, B.Ed, and Diplomas in Speech Therapy & Autism. Focuses on professional skills and employability.",
     icon: "GraduationCap",
-    image: "/admission-form-TAL-pdf.jpg",
+    image: getPath("/admission-form-TAL-pdf.jpg"),
     badge: "Higher Ed",
     color: "from-blue-600 to-indigo-700",
   },
@@ -275,7 +282,7 @@ export const programs = [
     shortTitle: "Vocational Skills",
     description: "Vocational training units for male and female students. Courses include Computer Graphics, Mobile Repair, Beautician, and Tailoring. The Shelter Workshop provides supervised income-generation opportunities for trained female students.",
     icon: "Wrench", 
-    image: "/720.800.png",
+    image: getPath("/720.800.png"),
     badge: "Shelter Workshop",
     color: "from-amber-500 to-yellow-600",
   },
@@ -285,7 +292,7 @@ export const programs = [
     shortTitle: "Social & Community",
     description: "A social platform fostering inclusion, leadership, and recreation for the deaf community. Organizes sports, cultural events, and peer support groups to reduce isolation and build confidence.",
     icon: "Users",
-    image: "/bn_slider.jpg",
+    image: getPath("/bn_slider.jpg"),
     badge: null,
     color: "from-teal-500 to-cyan-600",
   },
@@ -295,7 +302,7 @@ export const programs = [
     shortTitle: "Speech Therapy",
     description: "Provides clinical assessment and therapy for speech delays, stammering, aphasia, and swallowing disorders. Uses a multidisciplinary approach involving psychologists and audiologists to treat children and adults.",
     icon: "MessageCircle", 
-    image: "/900.600-1.png",
+    image: getPath("/900.600-1.png"),
     badge: null,
     color: "from-orange-500 to-red-600",
   },
@@ -305,7 +312,7 @@ export const programs = [
     shortTitle: "Psychology",
     description: "Standardized IQ testing, behavioral management plans, and counseling for parents and siblings. Addresses emotional and behavioral issues like ADHD, ODD, and anxiety with professional psychological support.",
     icon: "Brain",
-    image: "/111.jpg",
+    image: getPath("/111.jpg"),
     badge: null, 
     color: "from-pink-500 to-rose-600",
   }
@@ -347,25 +354,25 @@ export const faqs = [
 ];
 
 export const newsArticles = [
-  { id: 1, title: "Launch of Mobile Physiotherapy Unit", excerpt: "New mobile unit launched to provide home-based therapy for physically impaired individuals in 2026.", date: "2026", category: "New Launch", readTime: "2 min", image: "/cover.contact.jpg" },
-  { id: 2, title: "Inclusive Education Pilot Project", excerpt: "Tanzeem-al-Lissan starts Inclusive Education at Dhobi Ghat Main Campus and ten Sehara Centres.", date: "2026", category: "Education", readTime: "3 min", image: "/111.jpg" },
-  { id: 3, title: "ADP in Information Technology", excerpt: "Unique degree program launched exclusively for hearing-impaired students to acquire IT skills.", date: "2025", category: "Academics", readTime: "3 min", image: "/admission-form-TAL-pdf.jpg" },
+  { id: 1, title: "Launch of Mobile Physiotherapy Unit", excerpt: "New mobile unit launched to provide home-based therapy for physically impaired individuals in 2026.", date: "2026", category: "New Launch", readTime: "2 min", image: getPath("/cover.contact.jpg") },
+  { id: 2, title: "Inclusive Education Pilot Project", excerpt: "Tanzeem-al-Lissan starts Inclusive Education at Dhobi Ghat Main Campus and ten Sehara Centres.", date: "2026", category: "Education", readTime: "3 min", image: getPath("/111.jpg") },
+  { id: 3, title: "ADP in Information Technology", excerpt: "Unique degree program launched exclusively for hearing-impaired students to acquire IT skills.", date: "2025", category: "Academics", readTime: "3 min", image: getPath("/admission-form-TAL-pdf.jpg") },
 ];
 
 export const teamMembers = [
-  { name: "Dr. Iftikhar Ahmed", role: "Founder & President", bio: "Founded Tanzeem-al-Lissan in 1996. Visionary leader dedicated to the empowerment of persons with disabilities.", avatar: "IA", image: "/ceo.png" },
+  { name: "Dr. Iftikhar Ahmed", role: "Founder & President", bio: "Founded Tanzeem-al-Lissan in 1996. Visionary leader dedicated to the empowerment of persons with disabilities.", avatar: "IA", image: getPath("/ceo.png") },
 ];
 
 export const galleryImages = [
-  { id: 1, src: "/111.jpg", alt: "Special Education Classroom", category: "Education" },
-  { id: 2, src: "/720.800-2.png", alt: "Autism Therapy", category: "Therapy" },
-  { id: 3, src: "/720.800.png", alt: "Vocational Training", category: "Training" },
-  { id: 4, src: "/720.800-3.png", alt: "Hearing Impaired Students", category: "Education" },
-  { id: 5, src: "/720.800-4.png", alt: "Physiotherapy Session", category: "Therapy" },
-  { id: 6, src: "/600.400-1-1536x1024.png", alt: "Community Event", category: "Events" },
-  { id: 7, src: "/bn_slider.jpg", alt: "Computer Lab", category: "Facilities" },
-  { id: 8, src: "/900.600-1.png", alt: "Sports Day", category: "Activities" },
-  { id: 9, src: "/cover.contact.jpg", alt: "Staff Training", category: "Team" },
+  { id: 1, src: getPath("/111.jpg"), alt: "Special Education Classroom", category: "Education" },
+  { id: 2, src: getPath("/720.800-2.png"), alt: "Autism Therapy", category: "Therapy" },
+  { id: 3, src: getPath("/720.800.png"), alt: "Vocational Training", category: "Training" },
+  { id: 4, src: getPath("/720.800-3.png"), alt: "Hearing Impaired Students", category: "Education" },
+  { id: 5, src: getPath("/720.800-4.png"), alt: "Physiotherapy Session", category: "Therapy" },
+  { id: 6, src: getPath("/600.400-1-1536x1024.png"), alt: "Community Event", category: "Events" },
+  { id: 7, src: getPath("/bn_slider.jpg"), alt: "Computer Lab", category: "Facilities" },
+  { id: 8, src: getPath("/900.600-1.png"), alt: "Sports Day", category: "Activities" },
+  { id: 9, src: getPath("/cover.contact.jpg"), alt: "Staff Training", category: "Team" },
 ];
 
 export const presidentMessage = {
@@ -373,7 +380,7 @@ export const presidentMessage = {
   title: "President's Message",
   message: "Welcome to Tanzeem-al-Lissan, Faisalabad, an organization proudly serving individuals with special needs since 1996. What began with just six hearing-impaired students has grown into one of Punjab's leading institutions for special education, rehabilitation, and professional training.\n\nWe provide comprehensive educational, therapeutic, and rehabilitation services for individuals who are hearing impaired, intellectually challenged, physically challenged, and autistic, including outreach services for underserved rural communities. Our programs are designed to support learning, communication, independence, and overall well-being at every stage of life.\n\nIn addition to education and rehabilitation services, Tanzeem-al-Lissan offers Postgraduate Diploma (PGD) courses in Speech and Language Therapy (SLT), Autism Spectrum Disorder (ASD), and Clinical Psychology, as well as degree programs in Special Education, Computer Science, Psychology, and English Linguistics to prepare skilled professionals for the special needs sector. The organization also offers a degree program in Information Technology exclusively for hearing-impaired students, enabling them to develop technical skills and pursue independent careers.\n\nOur approach emphasizes holistic development, combining academics, therapy, vocational training, and co-curricular activities such as sports, arts, and life-skills education. We work in close partnership with parents and families to ensure every learner receives personalized care and support.\n\nOur mission is to empower individuals with disabilities to live with dignity, independence, and hope. We are honored by your trust and invite you to be part of this meaningful journey.",
   signature: "Founder & President, Tanzeem-al-Lissan",
-  image: "/ceo.png",
+  image: getPath("/ceo.png"),
 };
 
 export const timeline = [

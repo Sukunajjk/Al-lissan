@@ -68,7 +68,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <Link to="/" className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 relative flex-shrink-0">
-                 <img src="/logo.png" alt="Al-Lissan" className="w-full h-full object-contain" />
+                 <img src={import.meta.env.BASE_URL + "logo.png"} alt="Al-Lissan" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="text-[15px] font-bold text-white tracking-tight leading-none">Al-Lissan</span>

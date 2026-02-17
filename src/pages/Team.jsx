@@ -8,7 +8,7 @@ export default function Team() {
     <>
       {/* Editorial Hero */}
       <section className="relative pt-32 pb-20 bg-neutral-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/bn_slider.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bn_slider.jpg)` }}></div>
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/80 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

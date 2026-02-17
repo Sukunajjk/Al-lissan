@@ -94,7 +94,7 @@ export default function PresidentMessage() {
                         
                         <div className="mt-16 pt-10 border-t border-neutral-100 flex items-center justify-between">
                             <div>
-                                <img src="/signature-placeholder.png" alt="Signature" className="h-12 opacity-50 mb-2" /> 
+                                <img src={import.meta.env.BASE_URL + "signature-placeholder.png"} alt="Signature" className="h-12 opacity-50 mb-2" /> 
                                 {/* If we don't have a real signature image, we can just use text styled as one or remove the img tag */}
                                 <p className="font-serif italic text-2xl text-neutral-800">{presidentMessage.name}</p>
                                 <p className="text-neutral-500 text-sm uppercase tracking-wider font-semibold mt-1">Founding President</p>

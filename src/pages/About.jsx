@@ -185,13 +185,13 @@ export default function About() {
 
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }} className="space-y-4">
               <div className="relative rounded-2xl overflow-hidden">
-                <img src="/111.jpg" alt="Children in rehabilitation" className="w-full h-80 object-cover" />
+                <img src={import.meta.env.BASE_URL + "111.jpg"} alt="Children in rehabilitation" className="w-full h-80 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
                   <p className="text-white/80 text-sm">Empowering children since 1996</p>
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden">
-                <img src="/900.600-1.png" alt="Special education classroom" className="w-full h-64 object-cover" />
+                <img src={import.meta.env.BASE_URL + "900.600-1.png"} alt="Special education classroom" className="w-full h-64 object-cover" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
                   <p className="text-white/80 text-sm">State-of-the-art facilities</p>
                 </div>
