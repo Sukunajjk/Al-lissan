@@ -58,7 +58,6 @@ export default function Contact() {
                    <select className="w-full px-5 py-4 bg-neutral-50 border border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-0 outline-none transition-all text-neutral-600">
                       <option>General Inquiry</option>
                       <option>Admissions / Programs</option>
-                      <option>Donations & Fundraising</option>
                       <option>Volunteering</option>
                    </select>
                 </div>
